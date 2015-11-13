@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+
+{% block title %} Registrar Aula Ministrada {% endblock %}
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="/static/css/forms.css" />
+{% endblock %}
+
+{% block extrahead %}
+<script>
+//Carregando apenas turmas do professor logado
+$(document).ready(function(){
+	  $.getJSON("/filtro_turmas/minhas/", function(j) {
+	    var options = '<option value="">---------- </option>';
+	    for (var i = 0; i < j.length; i++) {
+	      options += '<option value="' + parseInt(j[i]['pk']) + '">' + j[i]['codigo'] + ' ('+ j[i]['curso'] +')</option>';
+	    }
+	    $("#id_turma").html(options);
+	    $("#id_turma option:first").attr('selected', 'selected');
+	    $("#id_turma").attr('disabled', false);
+	  })
+	  $("#id_turma").attr('selected', 'selected');
+})
+//Mudando o filtro de turmas com o radio
+$(function(){
+	$(".opcoes").change(function(){
+	  $.getJSON("/filtro_turmas/"+$(this).val()+"/", function(j) {
+	    var options = '<option value="">---------- </option>';
+	    for (var i = 0; i < j.length; i++) {
+	      options += '<option value="' + parseInt(j[i]['pk']) + '">' + j[i]['codigo'] + ' ('+ j[i]['curso'] +')</option>';
+	    }
+	    $("#id_turma").html(options);
+	    $("#id_turma option:first").attr('selected', 'selected');
+	    $("#id_turma").attr('disabled', false);
+	  })
+	  $("#id_turma").attr('selected', 'selected');
+	  $(".results").hide();
+	})
+})
+//Listando as aulas da turma selecionada
+$(function(){
+	$("#id_turma").change(function(){
+	  $.getJSON("/aulas_por_turma/"+$(this).val()+"/", function(j) {
+	    var linhas = '';
+		if (j.length > 0){
+			for (var i = 0; i < j.length; i++) {
+		    	linhas += '<tr><td>' + j[i]['turma'] + '</td><td>' + j[i]['professor'] + '</td><td>' + j[i]['data'] + '</td><td>' + j[i]['conteudo'] + '</td><td>';
+		    	if (j[i]['id']) {
+		    		linhas += '<a href="/aula/'+j[i]['id']+'/delete/"><span class="glyphicon glyphicon-trash"></span></a></td></tr>'
+		    	} 
+		    	else {
+		    		linhas += '</td></tr>'
+		    	}
+		    }
+		}
+	    else {
+			linhas = '<tr><td colspan="5"> Esta turma ainda não possui aulas ministrada! </td></tr>'
+		}
+	    $("#linhas").html(linhas);
+	  })
+	  if ($(this).val()!=""){
+	  	$(".results").show();
+	  }
+	  else {
+	  	$(".results").hide();
+	  }
+	})
+})
+</script>
+{% endblock %}
+
+{% block content %}
+	<form id="formAula" action="." method="post">{% csrf_token %}
+		<div>
+			<fieldset class="module aligned">
+				<div class="form-row">
+					<input class="opcoes" type="radio" name="opcao" value="minhas" checked="checked"> Minhas Turmas
+					<input class="opcoes" type="radio" name="opcao" value="todas"> Todas as Turmas
+				</div>
+				<div class="form-row">
+					{{ form.turma.errors }} {{form.turma.label_tag}} {{ form.turma }}
+				</div>
+				<div class="form-row">
+					{{ form.data.errors }} {{form.data.label_tag}} {{ form.data }}
+				</div>
+				<div class="form-row">
+					{{ form.conteudo.errors }} {{form.conteudo.label_tag}} {{ form.conteudo }}
+				</div>
+			</fieldset>
+			<div class="submit-row">
+				<input type="submit" value="Salvar" class="default" name="_save">
+			</div>
+		</div>
+	</form>
+
+	<div class="results" style="display:none;">
+		<table id="result_list">
+			<thead>
+				<tr>
+				<th scope="col" class="sortable column-codigo sorted ascending">
+				   <div class="text"><a href="?o=-1">Turma</a></div>
+				   <div class="clear"></div>
+				</th>
+				<th scope="col" class="sortable column-professor">
+				   <div class="text"><a href="?o=2.1">Professor</a></div>
+				   <div class="clear"></div>
+				</th>
+				<th scope="col" class="sortable column-curso">
+				   <div class="text"><a href="?o=3.1">Data</a></div>
+				   <div class="clear"></div>
+				</th>
+				<th scope="col" class="column-get_dias">
+				   <div class="text"><span>Conteúdo</span></div>
+				   <div class="clear"></div>
+				</th>
+				<th scope="col" class="column-remove">
+				   <div class="text"><span class="glyphicon glyphicon-trash"></span></div>
+				   <div class="clear"></div>
+				</th>
+				</tr>
+			</thead>
+			<tbody id="linhas">
+
+			</tbody>
+		</table>
+	</div>
+
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %} Detalhes turma {{turma}} {% endblock %}
+
+{% block extrahead %}
+<script src="/static/js/bootstrap.min.js"></script>	
+{% endblock %}
+
+{% block content %}
+
+<ul class="nav nav-tabs">
+	<li class="active"><a href="#dadosCadastrais" data-toggle="tab">Dados Cadastrais</a></li>
+	<li class=""><a href="#planos" data-toggle="tab">Planos de Aula</a></li>
+	<li class=""><a href="#aulas" data-toggle="tab">Aulas Ministradas</a></li>
+	<li class=""><a href="#notas" data-toggle="tab">Notas</a></li>
+</ul>
+<!-- Tab panes -->
+<div class="tab-content">				
+	<div class="tab-pane active" id="dadosCadastrais"> 
+		{{ turma }}
+	</div>
+	<div class="tab-pane" id="planos"> 
+	{% if planos %}
+		<table id="result_list">
+			<thead>
+				<tr> <th>Turma</th> <th>Módulo</th> <th>Professor</th> <th>Data</th> <th>Conteúdo</th> </tr>
+			</thead>
+			<tbody>
+				{% for plano in planos %}
+				<tr>
+					<td>{{ plano.turma }}</td>
+					<td>{{ plano.modulo }}</td>
+					<td>{{ plano.professor.user.first_name }} {{ plano.professor.user.last_name }}</td>
+					<td>{{ plano.data|date:"d/m/Y" }}</td>
+					<td>{{ plano.conteudo }}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	{% else %}
+		<div class="alert alert-warning" role="alert">Turma ainda não possui aulas ministradas</div>
+	{% endif %}
+	</div>
+	<div class="tab-pane" id="aulas">
+	{% if aulas %}
+		<table id="result_list">
+			<thead>
+				<tr> <th>Turma</th> <th>Professor</th> <th>Data</th> <th>Conteúdo</th> </tr>
+			</thead>
+			<tbody>
+				{% for aula in aulas %}
+				<tr>
+					<td>{{ aula.turma }}</td>
+					<td>{{ aula.professor.user.first_name }} {{ aula.professor.user.last_name }}</td>
+					<td>{{ aula.data|date:"d/m/Y" }}</td>
+					<td>{{ aula.conteudo }}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	{% else %}
+		<div class="alert alert-warning" role="alert">Turma ainda não possui aulas ministradas</div>
+	{% endif %}
+	</div>
+	<div class="tab-pane" id="notas"> Selecione a turma </div>
+</div>
+
+{% endblock %}

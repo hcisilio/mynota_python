@@ -1,0 +1,33 @@
+input, select, button{
+    font-size: 1.2em;
+	border-width: 1px ;
+	border-style: solid;
+	border-color: #1E90FF;
+	font-variant: small-caps;
+	border-radius: 5px;
+    background-color: #FFF;
+}
+.paginator{
+    text-align: right;
+}
+.object-tools{
+    list-style: none;
+}
+.addlink{
+    float: right;
+}
+.messagelist{
+    background-color: #3c763d;
+}
+.success {
+    color: #FFFFFF;
+}
+.messagelist {
+    border-radius: 5px 5px 5px 5px;
+    display: inline-block;
+    margin: 0 0 15px !important;
+    padding: 5px 3%;
+    text-align: center !important;
+    width: 100%;
+    list-style: none;
+}

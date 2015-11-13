@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %} MyNota - HOME {% endblock %}
+
+{% block topbar %}
+Bem vindo {{ usuario }}
+{% endblock %}
+
+{% block userlinks %}
+<li> <a href="/docs/" target="_blank"> <span class="glyphicon glyphicon-question-sign"></span> </a></li>
+<li> <a href="/trocar_senha/"> <span class="glyphicon glyphicon-lock"></span> </a></li>
+<li> <a href="/sair/"> <span class="glyphicon glyphicon-off" aria-hidden="true"></span> </a></li>
+{% endblock %}
+
+{% block conteudo %}
+
+
+
+{% endblock %}

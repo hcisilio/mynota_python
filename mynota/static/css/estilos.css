@@ -1,0 +1,229 @@
+@charset "UTF-8";
+/*Classe para estilizar textos em geral*/
+.texto {
+	color: #0008C5;
+	font-size: 1.5em;
+	font-weight: normal;
+	font-family: Helvetica, sans-serif;
+}
+/*propriedade para fixar uma altura minima da página, evitando que o menu lateral seja cortado*/
+#principal{
+	min-height: 600px;
+}
+.topo{
+	height: 60px;
+}
+/**/
+.sublinhado {
+	border-style: none;
+	border-color: #FFF;
+	border-bottom-style: solid;
+	border-bottom-color: #428BCA;
+	border-bottom-width: 2px;
+	text-align: left;
+}
+/*classe para destacar elemento padrão de um combobox*/
+.destaque {
+	color: #428BCA;
+}
+/*classe para afastar conteúdo para baixo da div atual*/
+.abaixo{
+	margin-bottom: 20px;
+}
+/*Classe para abaixar a div atual*/
+.desce {
+	margin-top: 120px
+}
+
+/*Classe para flutuar conteúdo para direita*/
+.naDireita{
+	text-align: right;
+}
+
+/*Classes para estilização do menu lateral do site*/
+.menuLateral{
+	margin-left: 0px !important;
+	margin-top: 5px;
+}
+.menuLateral a:hover {
+	background-color: #428BCA !important;
+	color: #FFF !important;
+}
+
+/*Classe para estilizar os campos dos formulário*/
+.edits {
+	font-size: 1.2em;
+	border-width: 1px ;
+	border-style: solid;
+	border-color: #1E90FF !important;
+	font-variant: small-caps;
+	border-radius: 5px;
+}
+
+/*Classe para destacar campos de formulário preenchido indevidamente*/
+.erro {
+	border-width: 2px !important;
+	border-color: red !important;
+}
+
+/*Classes para estilizar as tabelas do site*/
+#result_list {
+	text-align: center;
+	border-style: solid;
+	border-color: #428BCA;
+    width: 100%;
+}
+#result_list thead tr th{
+	background-color: #428BCA;
+	text-align: center;
+	border-style: solid;
+	border-color: #428BCA;
+    padding: 10px 10px 10px 10px;
+	vertical-align: middle;
+	display:table-cell;
+}
+#result_list thead, thead a, thead span {
+    color: #FFF;
+}
+#result_list tbody tr td, tbody tr th{
+	border-style: solid;
+	border-color: #428BCA;
+    border-width: 1.5px;
+	vertical-align: middle;
+    text-align: left;
+    padding: 10px 10px 10px 10px;
+	display:table-cell;
+}
+#result_list tbody .glyphicon-trash {
+	text-align: center;
+	color: #CC0000;
+}
+#result_list tbody .action-checkbox {
+    padding-left: 0 0 0 0;
+    text-align: center;
+}
+#result_list tbody a {
+    color: #428BCA;
+}
+#result_list tbody tr:hover{
+    background-color: #E8E8E8;
+}
+#personal_data {
+	border-style: none;
+    width: 100%;
+}
+#personal_data tbody tr td {
+	font-size: 1.2em;
+	padding: 10px;
+}
+#personal_data .even {
+	background-color: #F6F6F6;
+}
+.box {
+	border: 1px solid #428BCA;
+	border-radius: 2px;
+	clear: both;
+	margin: 0 0 20px !important;
+	padding: 0px 20px 20px 20px;
+	overflow: hidden;
+	width: 100%;
+}
+.box h3 {
+	background-color: #428BCA;
+	color: #FFFFFF;		
+	line-height: 36px;
+	margin: 0 -20px 20px -20px;
+	
+}
+/*Classe para estlizar a célula da tabela que está em edição (tabela de lançamentos de nota)*/
+.celulaEmEdicao input {
+	width: 50px;
+	font-size: 1.0em;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #1E90FF;
+	font-variant: small-caps;
+	border-radius: 5px;
+}
+/*Classe para colocar os cabeçalhos da tabela no sentido vertical*/
+.em_pe{
+	transform: rotate(90deg);
+	-moz-transform: rotate(90deg);     /*Firefox*/
+	-ms-transform: rotate(90deg);      /*Microsoft Internet Explorer*/
+	-webkit-transform: rotate(90deg);  /*Chrome, Safari*/
+	-o-transform: rotate(90deg);       /*Opera*/
+	margin: 15px 0px 15px 0px;
+}
+
+/*Classe para mensagens de observações*/
+.obs{
+	color: #CD2626;
+	text-align: right;
+	width:100%;
+}
+
+/*Classes para estilizar o rodapé das páginas*/
+#rodape {
+	background: #428BCA;
+	width:100%;
+	height:30px;
+	line-height: 30px;
+	position: fixed;
+	bottom: 0;
+}
+#rodape p {
+	color: #FFF;
+	text-align: center;
+}
+
+/*Classes para estilizar a barra superior (navbar)*/
+#barra {
+	background-color: #428BCA;
+	border-color: #428BCA;
+	text-align: right;
+	-moz-box-shadow: 3px 3px 4px #708090;
+	-webkit-box-shadow: 3px 3px 4px #708090;
+	box-shadow: 3px 3px 4px #708090;
+}
+#barra p{
+	color: #FFF;
+	font-size: 1.8em;
+}
+#barra ul li {
+	display: inline;
+	list-style-type: none;
+	font-weight: bold;
+}
+#barra ul li a:link, #barra ul li a:visited {
+	color: #FFFFFF;
+	font-variant: small-caps;
+	font-weight: bold;
+	text-decoration: none;
+}
+#barra ul li a:hover, #barra ul li a:active {
+	text-decoration: underline;
+	font-variant: small-caps;
+	font-weight: bold;
+}
+#barra img {
+	height: 40px;
+}
+/*Classe para estilizar as abas e seus conteúdos*/
+.nav-tabs {
+	border-bottom: 1px solid #428BCA !important;
+}
+.nav-tabs li a{
+	background-color: #FFFFFF !important;
+	border-color: #428BCA !important;
+}
+.nav-tabs li.active a{
+	background-color: #428BCA !important;
+	color: #FFF !important;
+}
+
+.nav-tabs li a{
+	color: #428BCA !important;
+}
+.tab-content{
+	margin: 10 0 0 0;	
+}

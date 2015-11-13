@@ -1,0 +1,152 @@
+label {
+    display: block;
+}
+fieldset {
+    border: 1px solid #DCDCDC;
+    border-radius: 5px;
+    clear: both;
+    background: #F9F9F9;
+    border-bottom: 1px solid #EEE;
+    border-left: 0 none;
+    border-right: 0 none;
+    border-top: 0 none;
+    font-size: 100%;
+    overflow: hidden;
+    padding: 5px 0;
+    width: 100%;
+}
+.inline-group {
+    border: 1px solid #DCDCDC;
+    border-radius: 5px;
+    clear: both;
+    background: #F9F9F9;
+    border-bottom: 1px solid #EEE;
+    border-left: 0 none;
+    border-right: 0 none;
+    border-top: 0 none;
+    margin: 10px 0 0 0;
+    font-size: 100%;
+    overflow: hidden;
+    padding: 0 0 0 10px;
+    width: 100%;
+}
+.inline-group h2 {
+    font-size: 2.0em;
+}
+.inline-group h3 {
+    font-size: 1.5em;
+    line-height: 1em;
+}
+.form-row {
+    padding: 10px 0 10px 20px;
+    margin-top: -1;
+}
+.form-row ul {
+    list-style: none;
+}
+.form-row ul li {
+    display: inline-block;
+    padding: 0 20px 0 0;
+}
+.errors {
+    border-style: solid;
+    border-width: 1px;
+    border-color: #CC0000;
+    border-radius: 5px 5px 5px 5px;
+    background-color: #FEEFB4;
+}
+.errorList {
+    list-style: none;
+    color: #CC0000;
+}
+.submit-row {
+    padding: 20px 0 0 20px;
+}
+.submit-row input {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+
+    color: #428bca;
+    background-color: #FFF;
+    border-color: #357ebd;
+}
+.submit-row .default {
+    color: #fff !important;
+    background-color: #428bca !important;
+    border-color: #357ebd !important;
+}
+.submit-row .deletelink-box{
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+
+    color: #fff;
+    background-color: #d9534f;
+    border-color: #d9534f;
+}
+.submit-row .deletelink {
+    color: #FFF;
+}
+.messagelist {
+    border-radius: 5px 5px 5px 5px;
+    display: inline-block;
+    margin: 0 !important;
+    padding: 0;
+    text-align: center !important;
+    width: 100%;
+    list-style: none;
+}
+.errornote, .error, .success {
+    border-radius: 5px 5px 5px 5px;
+    display: inline-block;
+    margin: 0 0 15px !important;
+    padding: 5px 3%;
+    text-align: center !important;
+    width: 100%;
+    list-style: none;
+}
+.errornote, .error{
+    background-color: #CC0000;
+}
+.errornote, .error, .success {
+    color: #FFFFFF;
+}
+.success{
+    background-color: #3c763d;
+}
+.delete{
+    display: flex;
+}
+.vCheckboxLabel{
+    font-size: 0.6em;
+    vertical-align: middle;    
+}

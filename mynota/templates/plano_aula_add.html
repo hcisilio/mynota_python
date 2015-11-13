@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+
+{% block title %} Registrar Plano de Aula {% endblock %}
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="/static/css/forms.css" />
+{% endblock %}
+
+{% block extrahead %}
+<script>
+//Carregando apenas turmas do professor logado
+$(document).ready(function(){
+	  $.getJSON("/filtro_turmas/minhas/", function(j) {
+	    var turmas = '<option value="">---------- </option>';
+	    for (var i = 0; i < j.length; i++) {
+	      turmas += '<option value="' + parseInt(j[i]['pk']) + '">' + j[i]['codigo'] + ' ('+ j[i]['curso'] +')</option>';
+	    }
+	    $("#id_modulo").html('<option value="">Selecione a turma</option>');
+	    $("#id_turma").html(turmas);
+	    $("#id_turma option:first").attr('selected', 'selected');
+	    $("#id_turma").attr('disabled', false);
+	  })
+	  $("#id_turma").attr('selected', 'selected');
+})
+//Listando os planos já cadastrados e os módulos da turma
+$(function(){
+	$("#id_turma").change(function(){
+	  $.getJSON("/modulos_por_turma/"+$(this).val()+"/", function(i) {
+	  	var modulos = '<option value="">----------</option>'
+	  	for (var x=0; x<i.length; x++){
+	  		modulos += '<option value="' + parseInt(i[x]['id']) + '">' + i[x]['nome'] + '</option>'
+	  	}
+	  	$("#id_modulo").html(modulos);
+	  })
+	  $.getJSON("/planos_por_turma/"+$(this).val()+"/", function(j) {
+	    var linhas = '';
+		if (j.length > 0){
+			for (var i = 0; i < j.length; i++) {
+		    	linhas += '<tr><td>' + j[i]['turma'] + '</td><td>' + j[i]['modulo'] + '</td><td>' + j[i]['data'] + '</td><td>' + j[i]['conteudo'] + '</td><td>' + '<a href="/aula/'+j[i]['id']+'/delete/"><span class="glyphicon glyphicon-trash"></span></a></td></tr>';    		
+		    }
+		}
+	    else {
+			linhas = '<tr><td colspan="5"> Esta turma ainda não plano de aula cadastrado! </td></tr>'
+		}
+	    $("#linhas").html(linhas);
+	  })
+	  if ($(this).val()!=""){
+	  	$(".results").show();
+	  }
+	  else {
+	  	$(".results").hide();
+	  }
+	})
+})
+</script>
+{% endblock %}
+
+{% block content %}
+
+	<form id="formPlanoAula" action="." method="post">{% csrf_token %}
+		<div>
+			<fieldset class="module aligned">
+				<div class="form-row">
+					{{ form.turma.errors }} {{form.turma.label_tag}} {{ form.turma }}
+				</div>
+				<div class="form-row">
+					{{ form.modulo.errors }} {{form.modulo.label_tag}} {{ form.modulo }}
+				</div>
+				<div class="form-row">
+					{{ form.data.errors }} {{form.data.label_tag}} {{ form.data }}
+				</div>
+				<div class="form-row">
+					{{ form.conteudo.errors }} {{form.conteudo.label_tag}} {{ form.conteudo }}
+				</div>
+			</fieldset>
+			<div class="submit-row">
+				<input type="submit" value="Salvar" class="default" name="_save">
+			</div>
+		</div>
+	</form>
+
+	<div class="results" style="display:none;">
+		<table id="result_list">
+			<thead>
+				<tr>
+				<th scope="col" class="sortable column-codigo sorted ascending">
+				   <div class="text"><a href="?o=-1">Turma</a></div>
+				   <div class="clear"></div>
+				</th>
+				<th scope="col" class="sortable column-professor">
+				   <div class="text"><a href="?o=2.1">Módulo</a></div>
+				   <div class="clear"></div>
+				</th>
+				<th scope="col" class="sortable column-curso">
+				   <div class="text"><a href="?o=3.1">Data</a></div>
+				   <div class="clear"></div>
+				</th>
+				<th scope="col" class="column-get_dias">
+				   <div class="text"><span>Conteúdo</span></div>
+				   <div class="clear"></div>
+				</th>
+				<th scope="col" class="column-remove">
+				   <div class="text"><span class="glyphicon glyphicon-trash"></span></div>
+				   <div class="clear"></div>
+				</th>
+				</tr>
+			</thead>
+			<tbody id="linhas">
+
+			</tbody>
+		</table>
+	</div>
+
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %} Detalhes aluno {{aluno}} {% endblock %}
+
+
+{% block content %}
+
+
+<div>				
+	<div id="dadosCadastrais" class="box">
+		<h3> Dados Cadastrais </h3>
+		<table id="personal_data">
+			<tbody>
+				<tr class='even'> <td>{{ aluno.matricula }}</td></tr>				
+				<tr class='odd'> <td>{{ aluno.nome }}</td></tr>
+				<tr class='even'> <td>{{ aluno.email }}</td></tr>
+			</tbody>
+		</table>
+	</div>
+	<div id="turmaNotas" class="box"> 
+	{% if turmas %}
+		<h3> Turmas e Notas </h3>
+		<table id="result_list">
+			<thead>
+				<tr> <th>Turma</th> <th>Professor</th> 
+			</thead>
+			<tbody>
+				{% for turma in turmas %}
+				<tr>
+					<td>{{ turma.codigo }}</td>					
+					<td>{{ turma.professor.user.first_name }} {{ plano.professor.user.last_name }}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>		
+	{% else %}
+		<div class="alert alert-error" role="alert">O aluno não está matriculado em nenhuma turma!</div>
+	{% endif %}
+	</div>
+</div>
+
+{% endblock %}
