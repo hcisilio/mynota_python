@@ -3,7 +3,10 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Pessoa(models.Model):
-	user = models.OneToOneField(User, null=False, blank=False)
+	user = models.OneToOneField(User, null=False, blank=False, on_delete=models.CASCADE)
+	nome = models.CharField(max_length=50, null=False, blank=False)
+	sobrenome = models.CharField(max_length=256, null=False, blank=False)
+	email = models.EmailField(null=True, blank=True)
 	comentario = models.TextField(max_length=1000, null=True, blank=True)
 	
 	class Meta:
@@ -112,3 +115,18 @@ class Nota(models.Model):
 
 	def __unicode__(self):
 		return u'%s - %s'%(self.aluno, self.modulo)
+
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
+@receiver(pre_save, sender=Aluno)
+@receiver(pre_save, sender=Professor)
+def gerar_usuario(sender, instance, **kwargs):
+	if not instance.id:
+		if sender == Aluno:
+			username = instance.matricula
+		elif sender == Professor:
+			username = instance.username
+		novo_usuario = User(username=username, first_name=instance.nome, last_name=instance.sobrenome, email=instance.email)
+		novo_usuario.set_password('123')
+		novo_usuario.save()
+		instance.user = novo_usuario
