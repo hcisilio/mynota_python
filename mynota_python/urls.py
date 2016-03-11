@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
+from mynota.autocomplete_light_registry import *
 
 admin.site.base_template = 'admin/mynota/base.html'
 admin.site.base_site_template = 'admin/mynota/base_site.html'
@@ -9,7 +10,16 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     #autocomplete
-    url(r'^autocomplete/', include('autocomplete_light.urls')),
+    url(
+        'turma-autocomplete/$',
+        AutocompleteTurma.as_view(),
+        name='turma-autocomplete',
+    ),
+    url(
+        'professor-autocomplete/$',
+        AutocompleteProfessor.as_view(),
+        name='professor-autocomplete',
+    ),
     url(r'^admin/', include(admin.site.urls)),
 
     url(r'^$', 'mynota.views.index', name='index'),

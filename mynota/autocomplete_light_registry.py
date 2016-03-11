@@ -1,39 +1,29 @@
 # -*- coding: utf-8 -*-
-import autocomplete_light
+from dal import autocomplete
 from mynota.models import Professor, Turma
 
-class AutocompleteTurma(autocomplete_light.AutocompleteModelBase):
-    attrs={
-        'placeholder': 'Digite o código da turma',
-        'data-autocomplete-minimum-characters': 1,
-        'class': 'edits',
-    }
+class AutocompleteTurma(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        # Retornando lista nula para usuário não autenticado
+        if not self.request.user.is_authenticated():
+            return Turma.objects.none()
 
-    def choices_for_request(self):
-        q = self.request.GET.get('q', '')
+        qs = Turma.objects.all()
 
-        choices = self.choices.all()
-        if q:
-            choices = choices.filter(codigo__icontains=q, situacao=True)
+        if self.q:
+            qs = qs.filter(codigo__icontains=q, situacao=True)
 
-        return self.order_choices(choices)[0:self.limit_choices]
+        return qs
 
-autocomplete_light.register(Turma, AutocompleteTurma)
+class AutocompleteProfessor(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        # Retornando lista nula para usuário não autenticado
+        if not self.request.user.is_authenticated():
+            return Professor.objects.none()
 
-class AutocompleteProfessor(autocomplete_light.AutocompleteModelBase):
-    attrs={
-        'placeholder': u'Digite o nome do professor',
-        'data-autocomplete-minimum-characters': 1,
-        'class': 'edits',
-    }
+        qs = Professor.objects.all()
 
-    def choices_for_request(self):
-        q = self.request.GET.get('q', '')
+        if self.q:
+            qs = qs.filter(user__first_name__icontains=q, user__is_active=True)
 
-        choices = self.choices.all()
-        if q:
-            choices = choices.filter(user__first_name__icontains=q, user__is_active=True)
-
-        return self.order_choices(choices)[0:self.limit_choices]
-
-autocomplete_light.register(Professor, AutocompleteProfessor)
+        return qs

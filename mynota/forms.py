@@ -43,19 +43,24 @@ class LoginForm(forms.Form):
 class AlunoForm(forms.ModelForm):
 	class Meta:
 		model = Aluno
+		exclude = ['user',]
 
 		widgets={
 			"matricula": forms.TextInput(attrs={'class':'edits', 'size':'20'}),
-			"nome": forms.TextInput(attrs={'class':'edits', 'size':'70'}),
-			"email": forms.EmailInput(attrs={'class':'edits', 'size':'70'}),
-			"turma": autocomplete_light.MultipleChoiceWidget('TurmaAutocompleteTurma')
+			# "nome": forms.TextInput(attrs={'class':'edits', 'size':'70'}),
+			# "email": forms.EmailInput(attrs={'class':'edits', 'size':'70'}),
+			"turma": autocomplete.ModelSelect2(url='turma-autocomplete', attrs={'class': 'edits'})
 		}
 		labels = {
 			'matricula': 'Matrícula',
-			'nome': 'Nome',
-			'email': 'e-mail',
+			# 'nome': 'Nome',
+			# 'email': 'e-mail',
 			'turma': 'Turma',
 		}
+	
+	first_name = forms.CharField(label=u'Primeiro Nome', widget=forms.TextInput(attrs={'class': 'edits', 'size': '30'}))
+	last_name = forms.CharField(label=u'Sobrenome', widget=forms.TextInput(attrs={'class': 'edits', 'size': '50'}))
+	email = forms.CharField(label=u'e-mail', required=False, widget=forms.EmailInput(attrs={'class': 'edits', 'size':'50'}))
 
 class AulaForm(forms.ModelForm):
 	def __init__(self, *args, **kwargs):
@@ -74,6 +79,7 @@ class AulaForm(forms.ModelForm):
 class CursoForm(forms.ModelForm):
 	class Meta:
 		model = Curso
+		fields = ['codigo', 'nome']
 		widgets={
 		  "codigo":forms.TextInput(attrs={'class':'edits'}),
 		  "nome":forms.TextInput(attrs={'class':'edits', 'size':'50'}),
@@ -82,6 +88,7 @@ class CursoForm(forms.ModelForm):
 class DiaForm(forms.ModelForm):
 	class Meta:
 		model = Dia
+		fields = ['nome',]
 		widgets={
 		  "nome":forms.TextInput(attrs={'placeholder':'Nome','class':'form-control edits'}),
 		}
@@ -89,6 +96,7 @@ class DiaForm(forms.ModelForm):
 class ModuloForm(forms.ModelForm):
 	class Meta:
 		model = Modulo
+		fields = ['nome', 'curso']
 		widgets={
 		  "nome":forms.TextInput(attrs={'class':'edits', 'size':'50'}),
 		  "curso":forms.Select(attrs={'class':'fedits', 'size':'50'})
@@ -112,12 +120,12 @@ class ProfessorForm(forms.ModelForm):
 	class Meta:
 		model = Professor
 		exclude = ['user',]
-		widgets={
-		  	"comentario":forms.Textarea(attrs={'class':'edits', 'rows':4, 'cols':70}),
-		}
-		labels = {
-			'comentario': u'Comentário',
-		}
+		# widgets={
+		#   	"comentario":forms.Textarea(attrs={'class':'edits', 'rows':4, 'cols':70}),
+		# }
+		# labels = {
+		# 	'comentario': u'Comentário',
+		# }
 
 	first_name = forms.CharField(label=u'Primeiro Nome', widget=forms.TextInput(attrs={'class': 'edits', 'size': '30'}))
 	last_name = forms.CharField(label=u'Sobrenome', widget=forms.TextInput(attrs={'class': 'edits', 'size': '50'}))
@@ -133,7 +141,7 @@ class TurmaForm(forms.ModelForm):
 			"codigo":forms.TextInput(attrs={'class':'edits'}),
 			"curso":forms.Select(attrs={'class':'edits'}),
 			# "professor":forms.Select(attrs={'class':'edits'}),
-			"professor": autocomplete_light.ChoiceWidget('ProfessorAutocompleteProfessor'),
+			"professor": autocomplete.ModelSelect2(url='proefssor-autocomplete', attrs={'class': 'edits'}),
 			"dia":forms.CheckboxSelectMultiple()
 		}
 		labels = {

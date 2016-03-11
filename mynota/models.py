@@ -2,9 +2,16 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-class Professor(models.Model):
+class Pessoa(models.Model):
 	user = models.OneToOneField(User, null=False, blank=False)
 	comentario = models.TextField(max_length=1000, null=True, blank=True)
+	
+	class Meta:
+		abstract = True
+
+class Professor(Pessoa):
+	username = models.CharField(max_length=20, unique=True)
+	disciplina_padrao = models.CharField(max_length=50, choices=[[u'Administração', u'Administração'], [u'Informática', u'Informática'], [u'Inglês', 'Inglês']])
 
 	class Meta:
 		verbose_name = u'Professor'
@@ -20,14 +27,6 @@ class Professor(models.Model):
 	def get_situacao(self):
 		return self.user.is_active
 	get_situacao.short_description = u'Situação'
-
-	def save(self, *args, **kwargs):		
-		try:
-			usuario = User.objects.get(username=request.POST['login'])
-		except User.DoesNotExist:
-			usuario = User.objects.create_user(request.POST['login'], request.POST['email'], request.POST['senha'])
-		self.user = usuario
-		super(Professor, self).save(*args, **kwargs)
 
 class Dia(models.Model):
 	nome = models.CharField(max_length=15, unique=True)
@@ -71,10 +70,8 @@ class Turma(models.Model):
 	link_to_detail.allow_tags = True
 	link_to_detail.short_description = 'Detalhes'
 
-class Aluno(models.Model):
+class Aluno(Pessoa):
 	matricula = models.CharField(max_length=10, unique=True)
-	nome = models.CharField(max_length=75)
-	email = models.EmailField(max_length=100, null=True, blank=True)
 	turma = models.ManyToManyField(Turma)
 
 	def __unicode__(self):

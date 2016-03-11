@@ -17,8 +17,9 @@ def index(request):
         return HttpResponseRedirect('/entrar/')
 
 def entrar(request):
-    next = request.REQUEST.get('next', '/home/')
+    next=request.GET.get('next', '/home/')
     if request.method == 'POST':
+        next = request.POST.get('next', '/home/')
         form = LoginForm(request.POST)
         if form.is_valid():
             usuario = form.logar()
