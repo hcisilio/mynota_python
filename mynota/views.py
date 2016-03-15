@@ -121,29 +121,26 @@ def planos_por_turma(request, turma):
     recipe_list_json = json.dumps(list) #dump list as JSON
     return HttpResponse(recipe_list_json, 'application/javascript')    
 
-def professor_add(request):
-    if request.method == 'POST':
-        form = ProfessorForm(request.POST)
-        if form.is_valid():
-            usuario = user_add(request)
-            professor = Professor (
-                nome = request.POST['nome'],
-                comentario = request.POST['comentario'],
-                situacao = request.POST['situacao'],
-                user = usuario
-            )
-            professor.save()
-            return HttpResponseRedirect(reverse('professor_add'))
-    else:
-        form = ProfessorForm()
-    return render(request, 'professor_add.html', {'form': form})
+# def professor_add(request):
+#     if request.method == 'POST':
+#         form = ProfessorForm(request.POST)
+#         if form.is_valid():
+#             usuario = user_add(request)
+#             professor = Professor (
+#                 nome = request.POST['nome'],
+#                 comentario = request.POST['comentario'],
+#                 situacao = request.POST['situacao'],
+#                 user = usuario
+#             )
+#             professor.save()
+#             return HttpResponseRedirect(reverse('professor_add'))
+#     else:
+#         form = ProfessorForm()
+#     return render(request, 'professor_add.html', {'form': form})
 
-def turma_detail(request, id):    
+def turma_detail(request, id):
     turma = get_object_or_404(Turma, pk=id)
-    aulas = Aula.objects.filter(turma = turma)
-    planos = PlanoAula.objects.filter(turma = turma)
-    lista = []
-    return render(request, 'turma_detail.html', {'turma': turma, 'aulas': aulas, 'planos': planos}) 
+    return render(request, 'turma_detail.html', {'turma': turma,}) 
 
 def filtro_turmas(request, opcao):
     if opcao == "minhas":

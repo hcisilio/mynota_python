@@ -78,7 +78,7 @@ class Aluno(Pessoa):
 	turma = models.ManyToManyField(Turma)
 
 	def __unicode__(self):
-		return u'%s - %s'%(self.matricula, self.nome)
+		return u'%s (%s)'%(self.nome, self.matricula)
 
 	def link_to_detail(self):		
 		return ("<a href='/aluno/detalhes/%s'> Detalhes </a>") % (self.id)
@@ -116,6 +116,8 @@ class Nota(models.Model):
 	def __unicode__(self):
 		return u'%s - %s'%(self.aluno, self.modulo)
 
+
+#Signals
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
 @receiver(pre_save, sender=Aluno)

@@ -11,7 +11,7 @@ class AutocompleteTurma(autocomplete.Select2QuerySetView):
         qs = Turma.objects.all()
 
         if self.q:
-            qs = qs.filter(codigo__icontains=q, situacao=True)
+            qs = qs.filter(codigo__icontains=self.q, situacao=True)
 
         return qs
 
@@ -24,6 +24,6 @@ class AutocompleteProfessor(autocomplete.Select2QuerySetView):
         qs = Professor.objects.all()
 
         if self.q:
-            qs = qs.filter(user__first_name__icontains=q, user__is_active=True)
+            qs = qs.filter(user__first_name__icontains=self.q, user__is_active=True)
 
         return qs
