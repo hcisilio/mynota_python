@@ -79,11 +79,6 @@ def aulas_por_turma(request, turma):
     recipe_list_json = json.dumps(list) #dump list as JSON
     return HttpResponse(recipe_list_json, 'application/javascript')
 
-def user_add(request):
-    usuario = User.objects.create_user(request.POST['username'].lower(), request.POST['email'], request.POST['senha'])
-    usuario.save()
-    return usuario
-
 def modulos_por_turma(request, turma):
     turma = Turma.objects.get(pk=turma)
     queryset = Modulo.objects.filter(curso=turma.curso)
@@ -91,7 +86,7 @@ def modulos_por_turma(request, turma):
     for row in queryset: #populate list
         list.append({'id':row.id, 'nome':row.nome})
     recipe_list_json = json.dumps(list) #dump list as JSON
-    return HttpResponse(recipe_list_json, 'application/javascript') 
+    return HttpResponse(recipe_list_json, 'application/javascript')
 
 def plano_aula_add(request):
     if request.method == 'POST':
@@ -119,24 +114,7 @@ def planos_por_turma(request, turma):
     for row in queryset: #populate list
         list.append({'turma':row.turma.codigo, 'modulo':row.modulo.nome, 'professor': row.professor.user.first_name +" "+ row.professor.user.last_name,'data': row.data.strftime('%d/%m/%Y'), 'conteudo': row.conteudo, 'id': row.id})
     recipe_list_json = json.dumps(list) #dump list as JSON
-    return HttpResponse(recipe_list_json, 'application/javascript')    
-
-# def professor_add(request):
-#     if request.method == 'POST':
-#         form = ProfessorForm(request.POST)
-#         if form.is_valid():
-#             usuario = user_add(request)
-#             professor = Professor (
-#                 nome = request.POST['nome'],
-#                 comentario = request.POST['comentario'],
-#                 situacao = request.POST['situacao'],
-#                 user = usuario
-#             )
-#             professor.save()
-#             return HttpResponseRedirect(reverse('professor_add'))
-#     else:
-#         form = ProfessorForm()
-#     return render(request, 'professor_add.html', {'form': form})
+    return HttpResponse(recipe_list_json, 'application/javascript')
 
 def turma_detail(request, id):
     turma = get_object_or_404(Turma, pk=id)
@@ -150,5 +128,37 @@ def filtro_turmas(request, opcao):
     list = [] #create list
     for row in queryset: #populate list
         list.append({'pk': row.pk, 'codigo':row.codigo, 'curso': row.curso.nome})
+    recipe_list_json = json.dumps(list) #dump list as JSON
+    return HttpResponse(recipe_list_json, 'application/javascript')
+
+def listar_notas(request):
+    if request.method == 'POST':
+        form = PlanoAulaForm(request.POST)
+        if form.is_valid():
+            # data_lista = request.POST['data'].split('/')
+            # data = datetime(int(data_lista[2]),int(data_lista[1]),int(data_lista[0]))
+            plano_aula = PlanoAula(
+                turma = form.cleaned_data['turma'],
+                modulo = form.cleaned_data['modulo'],
+                professor = Professor.objects.get(user=request.user),
+                data = form.cleaned_data['data'],
+                conteudo = form.cleaned_data['conteudo'],
+            )
+            plano_aula.save()
+            messages.success(request, 'Plano de aula registrado com sucesso')
+            return HttpResponseRedirect('/plano_aula/add/')
+    else:
+        form = PlanoAulaForm()
+    return render(request, 'nota_add.html', {'form': form})
+
+def notas_da_turma(request, turma):
+    turma = get_object_or_404(Turma, pk=turma)
+    queryset = turma.aluno_set.all()
+    list = [] #create list
+    for row in queryset: #populate list
+        notas = []
+        for modulo in turma.curso.modulo.all():
+            notas.append(Nota.get_nota(aluno=row, modulo=modulo))
+        list.append({'aluno':row.nome_completo(), 'notas': notas})
     recipe_list_json = json.dumps(list) #dump list as JSON
     return HttpResponse(recipe_list_json, 'application/javascript')

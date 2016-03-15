@@ -29,7 +29,7 @@ admin.site.register(User, UserAdmin)
 class ProfessorAdmin(admin.ModelAdmin):
     ordering = ('user__first_name',)
     search_fields = ('user__first_name',)
-    list_display = ('id', 'get_nome', 'get_situacao', 'comentario', 'user')
+    list_display = ('id', 'nome_completo', 'get_situacao', 'comentario', 'user')
     # list_filter = ('get_situacao',)
     list_display_icons = True
     export_to_xls = True

@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from mynota.autocomplete_light_registry import *
+import mynota.views
 
 admin.site.base_template = 'admin/mynota/base.html'
 admin.site.base_site_template = 'admin/mynota/base_site.html'
@@ -31,8 +32,10 @@ urlpatterns = patterns('',
     url(r'^aula/(?P<id>\d+)/delete/$', 'mynota.views.aula_delete', name='aula_delete' ),
     url(r'^aulas_por_turma/(?P<turma>.+)/$', 'mynota.views.aulas_por_turma', name='aulas_por_turma' ),
     url(r'^modulos_por_turma/(?P<turma>.+)/$', 'mynota.views.modulos_por_turma', name='modulos_por_turma' ),
+    url(r'^notas_da_turma/(?P<turma>.+)/$', mynota.views.notas_da_turma, name='notas_da_turma' ),
     url(r'^plano_aula/add/$', 'mynota.views.plano_aula_add', name='plano_aula_add' ),
     url(r'^planos_por_turma/(?P<turma>.+)/$', 'mynota.views.planos_por_turma', name='planos_por_turma' ),
     url(r'^filtro_turmas/(?P<opcao>.+)/$', 'mynota.views.filtro_turmas', name='filtro_turmas' ),
     url(r'^turma/detalhes/(?P<id>\d+)/$', 'mynota.views.turma_detail', name='turma_detail'),
+    url(r'^notas/listar/$', mynota.views.listar_notas, name='listar_notas'),
 )

@@ -148,3 +148,6 @@ class TurmaForm(forms.ModelForm):
 			'professor': 'Professor',
 			'dia': 'Dias',
 		}
+
+class NotaForm(forms.Form):
+	pass

@@ -11,6 +11,14 @@ class Pessoa(models.Model):
 	
 	class Meta:
 		abstract = True
+	
+	def nome_completo(self):
+		return " ".join([self.user.first_name, self.user.last_name])
+	nome_completo.short_description = u'Nome Completo'
+
+	def get_situacao(self):
+		return self.user.is_active
+	get_situacao.short_description = u'Situação'
 
 class Professor(Pessoa):
 	username = models.CharField(max_length=20, unique=True)
@@ -22,14 +30,6 @@ class Professor(Pessoa):
 
 	def __unicode__(self):
 		return u'%s %s'%(self.user.first_name, self.user.last_name)
-
-	def get_nome(self):
-		return " ".join([self.user.first_name, self.user.last_name])
-	get_nome.short_description = u'Nome Completo'
-
-	def get_situacao(self):
-		return self.user.is_active
-	get_situacao.short_description = u'Situação'
 
 class Dia(models.Model):
 	nome = models.CharField(max_length=15, unique=True)
@@ -78,9 +78,9 @@ class Aluno(Pessoa):
 	turma = models.ManyToManyField(Turma)
 
 	def __unicode__(self):
-		return u'%s (%s)'%(self.nome, self.matricula)
+		return u'%s %s (%s)'%(self.nome, self.sobrenome, self.matricula)
 
-	def link_to_detail(self):		
+	def link_to_detail(self):
 		return ("<a href='/aluno/detalhes/%s'> Detalhes </a>") % (self.id)
 	link_to_detail.allow_tags = True
 	link_to_detail.short_description = 'Detalhes'
@@ -115,6 +115,13 @@ class Nota(models.Model):
 
 	def __unicode__(self):
 		return u'%s - %s'%(self.aluno, self.modulo)
+
+	@classmethod
+	def get_nota(self, aluno, modulo):
+	    try:
+	        return Nota.objects.get(aluno=aluno, modulo=modulo).valor
+	    except Nota.DoesNotExist:
+	        return 0.0
 
 
 #Signals

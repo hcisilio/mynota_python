@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block title %} Registrar Plano de Aula {% endblock %}
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="/static/css/forms.css" />
+{% endblock %}
+
+{% block extrahead %}
+<script src="/static/js/tabelaEditavel.js"></script>
+<script>
+//Carregando apenas turmas do professor logado
+$(document).ready(function(){
+	  $.getJSON("/filtro_turmas/minhas/", function(j) {
+	    var turmas = '<option value="">---------- </option>';
+	    for (var i = 0; i < j.length; i++) {
+	      turmas += '<option value="' + parseInt(j[i]['pk']) + '">' + j[i]['codigo'] + ' ('+ j[i]['curso'] +')</option>';
+	    }
+	    $("#id_modulo").html('<option value="">Selecione a turma</option>');
+	    $("#id_turma").html(turmas);
+	    $("#id_turma option:first").attr('selected', 'selected');
+	    $("#id_turma").attr('disabled', false);
+	  })
+	  $("#id_turma").attr('selected', 'selected');
+})
+//Listando os alunos da turma e suas respectivas notas
+$(function(){
+	$("#id_turma").change(function(){
+	  $.getJSON("/modulos_por_turma/"+$(this).val()+"/", function(i) {
+        var cabecalho = '<th> Aluno </th>';
+        for (x=0; x<i.length; x++){
+            cabecalho += '<th scope="col" class="sortable column-codigo sorted ascending"><div class="text"><a href="?o=-1">' + i[x]['nome'] +'</a></div><div class="clear"></div></th>';
+        }
+        $("#cabecalho").html(cabecalho);
+      })
+      $.getJSON("/notas_da_turma/"+$(this).val()+"/", function(j) {
+	    var linhas = '';
+		if (j.length > 0){
+			for (var x=0; x<j.length; x++) {
+                linhas += '<tr><td>' + j[x]['aluno'] + '</td>';
+                for (var i=0; i<j[x]['notas'].length; i++){
+                    linhas += '<td class="editavel">' + j[x]['notas'][i] + '</td>';
+                }
+                linhas += '</tr>';
+		    }
+		}
+	    else {
+			linhas = '<tr><td colspan="5"> Esta turma ainda não plano de aula cadastrado! </td></tr>'
+		}
+        $("#linhas").html(linhas);
+	  })
+	  if ($(this).val()!=""){
+	  	$(".results").show();
+	  }
+	  else {
+	  	$(".results").hide();
+	  }
+	})
+})
+</script>
+{% endblock %}
+
+{% block content %}
+
+    <fieldset class="module aligned">
+        <div class="form-row">
+            <label for="id_turma">Turma:</label>
+            <select class="edits" id="id_turma" name="turma" selected="selected"></select>
+        </div>
+    </fieldset>
+
+	<div class="results" style="display:none;">
+		<table id="result_list">
+			<thead>
+				<tr id="cabecalho"></tr>
+			</thead>
+			<tbody id="linhas">
+
+			</tbody>
+		</table>
+	</div>
+
+{% endblock %}
