@@ -164,8 +164,8 @@ def notas_da_turma(request, turma):
     recipe_list_json = json.dumps(list) #dump list as JSON
     return HttpResponse(recipe_list_json, 'application/javascript')
 
-from django.views.decorators.csrf import csrf_exempt
-@csrf_exempt
+# from django.views.decorators.csrf import csrf_exempt
+# @csrf_exempt
 def lancar_nota(request):
     if request.method == "POST" and request.is_ajax():
         aluno = get_object_or_404(Aluno, pk=request.POST['aluno_id'])
