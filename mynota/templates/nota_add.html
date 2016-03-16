@@ -23,12 +23,14 @@ $(document).ready(function(){
 	  $("#id_turma").attr('selected', 'selected');
 })
 //Listando os alunos da turma e suas respectivas notas
+var colspan = 1
 $(function(){
-	$("#id_turma").change(function(){
+    $("#id_turma").change(function(){
 	  $.getJSON("/modulos_por_turma/"+$(this).val()+"/", function(i) {
         var cabecalho = '<th> Aluno </th>';
         for (x=0; x<i.length; x++){
-            cabecalho += '<th scope="col" class="sortable column-codigo sorted ascending"><div class="text"><a href="?o=-1">' + i[x]['nome'] +'</a></div><div class="clear"></div></th>';
+            cabecalho += '<th scope="col"><label class="em_pe">' + i[x]['nome'] +' </label></th>';
+            colspan ++;
         }
         $("#cabecalho").html(cabecalho);
       })
@@ -38,13 +40,13 @@ $(function(){
 			for (var x=0; x<j.length; x++) {
                 linhas += '<tr><td>' + j[x]['aluno'] + '</td>';
                 for (var i=0; i<j[x]['notas'].length; i++){
-                    linhas += '<td class="editavel">' + j[x]['notas'][i] + '</td>';
+                    linhas += '<td title="'+ j[x]['notas'][i][0] +'" class="editavel">' + j[x]['notas'][i][1] + '</td>';
                 }
                 linhas += '</tr>';
 		    }
 		}
 	    else {
-			linhas = '<tr><td colspan="5"> Esta turma ainda não plano de aula cadastrado! </td></tr>'
+			linhas = '<tr><td colspan="'+ colspan +'"> Turma não possui nehum aluno matriculado </td></tr>'
 		}
         $("#linhas").html(linhas);
 	  })
@@ -74,7 +76,6 @@ $(function(){
 				<tr id="cabecalho"></tr>
 			</thead>
 			<tbody id="linhas">
-
 			</tbody>
 		</table>
 	</div>

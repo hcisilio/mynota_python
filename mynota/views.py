@@ -158,7 +158,8 @@ def notas_da_turma(request, turma):
     for row in queryset: #populate list
         notas = []
         for modulo in turma.curso.modulo.all():
-            notas.append(Nota.get_nota(aluno=row, modulo=modulo))
+            nota = [modulo.nome, Nota.get_nota(aluno=row, modulo=modulo)]
+            notas.append(nota)
         list.append({'aluno':row.nome_completo(), 'notas': notas})
     recipe_list_json = json.dumps(list) #dump list as JSON
     return HttpResponse(recipe_list_json, 'application/javascript')
