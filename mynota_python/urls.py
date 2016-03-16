@@ -38,4 +38,5 @@ urlpatterns = patterns('',
     url(r'^filtro_turmas/(?P<opcao>.+)/$', 'mynota.views.filtro_turmas', name='filtro_turmas' ),
     url(r'^turma/detalhes/(?P<id>\d+)/$', 'mynota.views.turma_detail', name='turma_detail'),
     url(r'^notas/listar/$', mynota.views.listar_notas, name='listar_notas'),
+    url(r'^notas/lancar_nota/$', mynota.views.lancar_nota, name='lancar_nota'),
 )

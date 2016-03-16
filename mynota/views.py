@@ -158,8 +158,27 @@ def notas_da_turma(request, turma):
     for row in queryset: #populate list
         notas = []
         for modulo in turma.curso.modulo.all():
-            nota = [modulo.nome, Nota.get_nota(aluno=row, modulo=modulo)]
+            nota = [modulo.id, Nota.get_nota(aluno=row, modulo=modulo)]
             notas.append(nota)
-        list.append({'aluno':row.nome_completo(), 'notas': notas})
+        list.append({'aluno':[row.id, row.nome_completo()], 'notas': notas})
     recipe_list_json = json.dumps(list) #dump list as JSON
     return HttpResponse(recipe_list_json, 'application/javascript')
+
+from django.views.decorators.csrf import csrf_exempt
+@csrf_exempt
+def lancar_nota(request):
+    if request.method == "POST" and request.is_ajax():
+        aluno = get_object_or_404(Aluno, pk=request.POST['aluno_id'])
+        modulo = get_object_or_404(Modulo, pk=request.POST['modulo_id'])
+        try:
+            nota = Nota.objects.get(aluno=aluno, modulo=modulo)
+            nota.valor = float(request.POST['valor'])
+            nota.save()
+        except Nota.DoesNotExist:
+            Nota.objects.create(aluno=aluno, modulo=modulo, valor=float(request.POST['valor']))
+        
+        response_data = {'result': 'Nota lançada!'}
+        return HttpResponse(
+            json.dumps(response_data),
+            content_type="application/json"
+        )

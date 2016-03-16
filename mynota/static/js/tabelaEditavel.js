@@ -13,17 +13,19 @@ $(function () {
 					var objeto = $(this);
 					$.ajax ({
 						type:"POST",
-						url:"../Controladores/controlador.php",
+						url:"/notas/lancar_nota/",
+						dataType: "json",
 						data:{
-							classe: "Nota",
-							metodo: "alterar",
-							aluno: $(this).parents('tr').children().first().text(),
-							modulo: $(this).parent().attr('title'),
+							aluno_id: $(this).parents('tr').children().first().attr('title'),
+							modulo_id: $(this).parent().attr('title'),
 							valor: conteudoNovo
 						},
 						success:function(result){
 							objeto.parent().html(conteudoNovo);
 							$('body').append(result);
+						},
+						error:function(xhr){
+							alert(xhr.responseText);
 						}
 					});
 				}
@@ -31,7 +33,6 @@ $(function () {
 					$(this).parent().html(conteudoOriginal);
 				};
 			}
-		
 		});
 		$(this).children().first().blur(function(){
 			$(this).parent().text(conteudoOriginal);

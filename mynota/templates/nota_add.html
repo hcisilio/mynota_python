@@ -38,7 +38,7 @@ $(function(){
 	    var linhas = '';
 		if (j.length > 0){
 			for (var x=0; x<j.length; x++) {
-                linhas += '<tr><td>' + j[x]['aluno'] + '</td>';
+                linhas += '<tr><td title="'+ j[x]['aluno'][0] +'">' + j[x]['aluno'][1] + '</td>';
                 for (var i=0; i<j[x]['notas'].length; i++){
                     linhas += '<td title="'+ j[x]['notas'][i][0] +'" class="editavel">' + j[x]['notas'][i][1] + '</td>';
                 }
@@ -78,6 +78,7 @@ $(function(){
 			<tbody id="linhas">
 			</tbody>
 		</table>
+		<div class="obs"> Obs.: Dê um duplo clique na nota que será editada e use ponto (.) para separar as casas decimais. </div>
 	</div>
 
 {% endblock %}
