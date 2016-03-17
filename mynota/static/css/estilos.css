@@ -153,6 +153,7 @@
 	-webkit-transform: rotate(90deg);  /*Chrome, Safari*/
 	-o-transform: rotate(90deg);       /*Opera*/
 	margin: 15px 0px 15px 0px;
+	padding: 15px 0 15px 0;
 }
 
 /*Classe para mensagens de observações*/

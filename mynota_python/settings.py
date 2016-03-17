@@ -2,17 +2,6 @@
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-TEMPLATE_DIRS = (os.path.join(BASE_DIR, '/mynota/templates/'),)
-
-
-# import tempfile
-# import logging
-# from os.path import abspath, dirname, join
-#
-# PROJECT_PATH = abspath(dirname(__file__))
-# PROJECT_NAME = PROJECT_PATH.split('/')[-1]
-# TEMP_DIR = tempfile.mkdtemp(prefix=PROJECT_NAME)
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
@@ -23,22 +12,7 @@ SECRET_KEY = '(hjhc*nb3u*dc2#2o8gho-#cqbk4x4j1py*69%-9hewvt!t(x5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-TEMPLATE_DEBUG = True
-
 ALLOWED_HOSTS = []
-
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-)
-
-# TEMPLATE_DIRS = (
-#     '%s/templates' %(PROJECT_PATH),
-#     '%s/mynota/templates' %(PROJECT_PATH),
-#     PROJECT_PATH
-# )
-
-# Application definition
 
 INSTALLED_APPS = (
     'dal',
@@ -62,10 +36,28 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.contrib.messages.context_processors.messages',
-    'django.contrib.auth.context_processors.auth',
-)
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            (os.path.join(BASE_DIR, '/mynota/templates/'),)
+        ],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                # Insert your TEMPLATE_CONTEXT_PROCESSORS here or use this
+                # list if you haven't customized them:
+                'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.debug',
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'django.template.context_processors.tz',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
 
 ROOT_URLCONF = 'mynota_python.urls'
 
