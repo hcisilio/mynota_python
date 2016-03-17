@@ -143,19 +143,18 @@ class ProfessorForm(forms.ModelForm):
 class TurmaForm(forms.ModelForm):
 	class Meta:
 		model = Turma
-		exclude = ['situacao',]
+		fields = ['codigo', 'curso', 'professor', 'dia', 'situacao']
 		widgets={
 			"codigo":forms.TextInput(attrs={'class':'edits'}),
 			"curso":forms.Select(attrs={'class':'edits'}),
 			"professor": autocomplete.ModelSelect2(url='professor-autocomplete', attrs={'class': 'edits'}),
-			"dia":forms.CheckboxSelectMultiple()
+			"situacao": forms.CheckboxInput(attrs={'class':'edits'}),
+			"dia":forms.CheckboxSelectMultiple(),
 		}
 		labels = {
 			'codigo': u'Código',
 			'curso': u'Curso',
 			'professor': 'Professor',
+			'situacao': u'Turma Ativa?',
 			'dia': 'Dias',
 		}
-
-class NotaForm(forms.Form):
-	pass

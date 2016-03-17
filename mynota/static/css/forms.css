@@ -146,7 +146,4 @@ fieldset {
 .delete{
     display: flex;
 }
-.vCheckboxLabel{
-    font-size: 0.6em;
-    vertical-align: middle;    
-}
+

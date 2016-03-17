@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
+from django.contrib.admin.views.main import ChangeList
 from django.contrib.auth.admin import UserAdmin as AuthUserAdmin
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
@@ -8,23 +9,23 @@ from mynota.models import *
 
 admin.site.disable_action('delete_selected')
 # Register your models here.
-class ProfessorInline(admin.StackedInline):
-    model = Professor
-    max_num = 1
-    can_delete = False
-
-class AlunoInline(admin.StackedInline):
-    model = Aluno
-    max_num = 1
-    can_delete = False
-
-class UserAdmin(AuthUserAdmin):
-    inlines = [ProfessorInline, AlunoInline]
-
-# unregister old user admin
-admin.site.unregister(User)
-# register new user admin
-admin.site.register(User, UserAdmin)
+# class ProfessorInline(admin.StackedInline):
+#     model = Professor
+#     max_num = 1
+#     can_delete = False
+# 
+# class AlunoInline(admin.StackedInline):
+#     model = Aluno
+#     max_num = 1
+#     can_delete = False
+# 
+# class UserAdmin(AuthUserAdmin):
+#     inlines = [ProfessorInline, AlunoInline]
+# 
+# # unregister old user admin
+# admin.site.unregister(User)
+# # register new user admin
+# admin.site.register(User, UserAdmin)
 
 class ProfessorAdmin(admin.ModelAdmin):
     ordering = ('nome', 'sobrenome')

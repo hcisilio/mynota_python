@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import Group, User
 
 class Pessoa(models.Model):
 	user = models.OneToOneField(User, null=False, blank=False, on_delete=models.CASCADE)
@@ -141,4 +141,10 @@ def gerar_usuario(sender, instance, **kwargs):
 		novo_usuario = User(username=username, first_name=instance.nome, last_name=instance.sobrenome, email=instance.email)
 		novo_usuario.set_password('123')
 		novo_usuario.save()
+		if sender == Aluno:
+			novo_usuario.groups.add(Group.objects.get(name='Aluno'))
+		elif sender == Professor:
+			novo_usuario.is_staff=1
+			novo_usuario.save()
+			novo_usuario.groups.add(Group.objects.get(name='Professor'))
 		instance.user = novo_usuario
