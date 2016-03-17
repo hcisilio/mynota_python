@@ -1,3 +1,18 @@
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
 $(function () {
 	// $("#result_list").dblclick(function () {
 	$("#result_list").on("dblclick", ".editavel", function(){
@@ -16,6 +31,7 @@ $(function () {
 						url:"/notas/lancar_nota/",
 						dataType: "json",
 						data:{
+							csrfmiddlewaretoken: getCookie('csrftoken'),
 							aluno_id: $(this).parents('tr').children().first().attr('title'),
 							modulo_id: $(this).parent().attr('title'),
 							valor: conteudoNovo
