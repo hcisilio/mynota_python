@@ -59,6 +59,14 @@ class AlunoForm(forms.ModelForm):
 			'turma': 'Turma',
 		}
 
+	def clean_turma(self):
+		turmas = self.cleaned_data.get('turma')
+		for i in range(0, len(turmas)-1):
+			for j in range(0, len(turmas)-1-i):
+				if turmas[j].curso == turmas[j + 1].curso:
+					raise forms.ValidationError(u'Aluno não pode ser matriculado em turmas de mesmo curso (turmas %s e %s são do curso %s)' % (turmas[j].codigo, turmas[j+1].codigo, turmas[j].curso))
+		return turmas
+
 class AulaForm(forms.ModelForm):
 	def __init__(self, *args, **kwargs):
 		super(AulaForm, self).__init__(*args, **kwargs)
