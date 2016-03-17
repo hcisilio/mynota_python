@@ -68,10 +68,10 @@ class Turma(models.Model):
 		return "; ".join([d.nome for d in self.dia.all()])
 	get_dias.short_description = 'Dias de Aula'
 
-	def link_to_detail(self):		
-		return ("<a href='/turma/detalhes/%s'> Detalhes </a>") % (self.id)
+	def link_to_detail(self):
+		return ("<a href='/turma/detalhes/%s'> <span class='glyphicon glyphicon-search' aria-hidden='true'></span> </a><a href='/admin/mynota/turma/%s/change/'> <span class='glyphicon glyphicon-edit' aria-hidden='true'></span> </a>") % (self.id, self.id)
 	link_to_detail.allow_tags = True
-	link_to_detail.short_description = 'Detalhes'
+	link_to_detail.short_description = '#'
 
 class Aluno(Pessoa):
 	matricula = models.CharField(max_length=10, unique=True)

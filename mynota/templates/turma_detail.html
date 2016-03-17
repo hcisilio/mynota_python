@@ -18,8 +18,12 @@
 <!-- Tab panes -->
 <div class="tab-content">
 	<div class="tab-pane active" id="dadosCadastrais">
-		{{ turma }}
-		{{ turma.curso.modulo.all }}
+		<p>Código: {{ turma.codigo }}</p>
+		<p>Curso: {{ turma.curso }}</p>
+		<p>Módulos: {% for modulo in turma.curso.modulo.all %} {{modulo}} {% endfor %} </p>
+		<p>Dias de aula: {% for dia in turma.dia.all %} {{dia}} {% endfor %} </p>
+		<p>Professor: {{ turma.professor }} </p>
+		<a href="/admin/mynota/turma/{{turma.pk}}/change/" class="addlink btn btn-primary">Alterar Dados</a>
 	</div>
 	<div class="tab-pane" id="planos"> 
 	{% if turma.plano_aula.all %}
@@ -40,7 +44,7 @@
 			</tbody>
 		</table>
 	{% else %}
-		<div class="alert alert-warning" role="alert">Turma ainda não possui aulas ministradas</div>
+		<div class="alert alert-info" role="alert">Turma ainda não possui aulas planejadas</div>
 	{% endif %}
 	</div>
 	<div class="tab-pane" id="aulas">
@@ -61,29 +65,33 @@
 			</tbody>
 		</table>
 	{% else %}
-		<div class="alert alert-warning" role="alert">Turma ainda não possui aulas ministradas</div>
+		<div class="alert alert-info" role="alert">Turma ainda não possui aulas ministradas</div>
 	{% endif %}
 	</div>
 	<div class="tab-pane" id="notas">
-		<table id="result_list">
-			<thead>
-				<tr> <th>Aluno</th>
-				{% for modulo in turma.curso.modulo.all %}
-					<th>{{modulo}}</th>
-				{% endfor %}
-				</tr>
-			</thead>
-			<tbody>
-				{% for aluno in turma.aluno_set.all %}
-					<tr>
-						<td>{{ aluno }}</td>
-						{% for modulo in turma.curso.modulo.all %}
-							<th>{{ aluno|get_nota:modulo }}</th>
-						{% endfor %}
+		{% if turma.aluno_set.all %}
+			<table id="result_list">
+				<thead>
+					<tr> <th>Aluno</th>
+					{% for modulo in turma.curso.modulo.all %}
+						<th>{{modulo}}</th>
+					{% endfor %}
 					</tr>
-				{% endfor %}
-			</tbody>
-		</table>
+				</thead>
+				<tbody>
+					{% for aluno in turma.aluno_set.all %}
+						<tr>
+							<td>{{ aluno }}</td>
+							{% for modulo in turma.curso.modulo.all %}
+								<th>{{ aluno|get_nota:modulo }}</th>
+							{% endfor %}
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		{% else %}
+			<p class="alert alert-info" role="alert">Turma não possui nehum aluno matriculado</p>
+		{% endif %}
 	</div>
 </div>
 

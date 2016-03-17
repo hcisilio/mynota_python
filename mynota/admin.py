@@ -27,9 +27,9 @@ admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
 
 class ProfessorAdmin(admin.ModelAdmin):
-    ordering = ('user__first_name',)
-    search_fields = ('user__first_name',)
-    list_display = ('id', 'nome_completo', 'get_situacao', 'comentario', 'user')
+    ordering = ('nome', 'sobrenome')
+    search_fields = ('nome', 'sobrenome')
+    list_display = ('id', 'nome_completo', 'get_situacao', 'email', 'disciplina_padrao', 'user')
     # list_filter = ('get_situacao',)
     list_display_icons = True
     export_to_xls = True
@@ -37,8 +37,8 @@ class ProfessorAdmin(admin.ModelAdmin):
 admin.site.register(Professor, ProfessorAdmin)
 
 class AlunoAdmin(admin.ModelAdmin):
-    ordering = ('user__first_name',)
-    search_fields = ('user__first_name', 'matricula')
+    ordering = ('nome', 'sobrenome')
+    search_fields = ('nome', 'sobrenome', 'matricula')
     # list_display = ('matricula', 'user__first_name','user__email', 'link_to_detail')
     form = AlunoForm
 admin.site.register(Aluno, AlunoAdmin)
@@ -63,13 +63,13 @@ admin.site.register(Curso, CursoAdmin)
 
 class TurmaAdmin(admin.ModelAdmin):
     ordering = ('codigo',)
-    search_fields = ('codigo', 'professor', 'curso')
-    list_display = ('codigo', 'professor', 'curso', 'get_dias', 'situacao', 'link_to_detail')
-    list_filter = ('situacao',)
+    search_fields = ('codigo', 'professor__nome', 'professor__sobrenome', 'curso__nome')
+    list_display = ('link_to_detail', 'codigo', 'professor', 'curso', 'get_dias', 'situacao')
+    list_filter = ('situacao', 'professor')
     form = TurmaForm
 
     def view_on_site(self, obj):
-        return reverse('turma_detail', kwargs={'id': obj.id})    
+        return reverse('turma_detail', kwargs={'id': obj.id})
 admin.site.register(Turma, TurmaAdmin)
 
 # class AulaAdmin(admin.ModelAdmin):
@@ -77,6 +77,6 @@ admin.site.register(Turma, TurmaAdmin)
 #     list_display = ('turma', 'professor', 'data', 'conteudo')
 # admin.site.register(Aula, AulaAdmin)
 
-class PlanoAulaAdmin(admin.ModelAdmin):
-    search_fields = ('turma', 'professor', 'data', 'modulo')
-admin.site.register(PlanoAula, PlanoAulaAdmin)
+# class PlanoAulaAdmin(admin.ModelAdmin):
+#     search_fields = ('turma', 'professor', 'data', 'modulo')
+# admin.site.register(PlanoAula, PlanoAulaAdmin)
