@@ -113,6 +113,9 @@ class Nota(models.Model):
 	modulo = models.ForeignKey(Modulo, related_name='nota')
 	valor = models.FloatField()
 
+	class Meta:
+		unique_together = ("aluno", "modulo")
+
 	def __unicode__(self):
 		return u'%s - %s'%(self.aluno, self.modulo)
 
