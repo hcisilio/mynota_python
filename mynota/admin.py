@@ -66,7 +66,7 @@ class TurmaAdmin(admin.ModelAdmin):
     ordering = ('codigo',)
     search_fields = ('codigo', 'professor__nome', 'professor__sobrenome', 'curso__nome')
     list_display = ('link_to_detail', 'codigo', 'professor', 'curso', 'get_dias', 'situacao')
-    list_filter = ('situacao', 'professor')
+    list_filter = ('situacao',)
     form = TurmaForm
 
     def get_queryset(self, request):
