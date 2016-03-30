@@ -195,19 +195,16 @@
 	list-style-type: none;
 	font-weight: bold;
 }
-#barra ul li a:link, #barra ul li a:visited {
+#barra ul li a, #barra ul li a:link, #barra ul li a:visited {
 	color: #FFFFFF;
 	font-variant: small-caps;
 	font-weight: bold;
 	text-decoration: none;
 }
-#barra ul li a:hover, #barra ul li a:active {
-	text-decoration: underline;
+#barra ul li a, #barra ul li a:hover, #barra ul li a:active {
+	text-decoration: none;
 	font-variant: small-caps;
 	font-weight: bold;
-}
-#barra img {
-	height: 40px;
 }
 /*Classe para estilizar as abas e seus conteúdos*/
 .nav-tabs {

@@ -24,10 +24,10 @@
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<ul class="nav navbar-nav">
-					{% block welcome-msg %}
+					<li><a>{% block welcome-msg %}
 		                {% trans 'Welcome,' %}
 		                <strong>{% firstof user.get_short_name user.get_username %}</strong>.
-		            {% endblock %}
+		            {% endblock %}</a></li>
 				</ul>
 			</div>
 			<div class="collapse navbar-collapse">
