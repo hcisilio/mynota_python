@@ -17,6 +17,9 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = (
     'dal',
     'dal_select2',
+    'admin_tools',
+    'admin_tools.theming',
+    'admin_tools.menu',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,7 +45,7 @@ TEMPLATES = [
         'DIRS': [
             (os.path.join(BASE_DIR, '/mynota/templates/'),)
         ],
-        'APP_DIRS': True,
+        'APP_DIRS': False,
         'OPTIONS': {
             'context_processors': [
                 # Insert your TEMPLATE_CONTEXT_PROCESSORS here or use this
@@ -55,11 +58,12 @@ TEMPLATES = [
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
             ],
-        # 'loaders': [
-        #         # insert your TEMPLATE_LOADERS here
-        #         'django.template.loaders.filesystem.Loader',
-        #         'django.template.loaders.app_directories.Loader',
-        #     ]
+        'loaders': [
+                # insert your TEMPLATE_LOADERS here
+                'django.template.loaders.filesystem.Loader',
+                'django.template.loaders.app_directories.Loader',
+                'admin_tools.template_loaders.Loader',
+            ]
         },
     },
 ]

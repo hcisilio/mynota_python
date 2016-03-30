@@ -4,6 +4,8 @@
    	<title> {% block title %} {% endblock %} </title>
    	<link rel="stylesheet" type="text/css" href="/static/css/estilos.css">
 	<link href="/static/css/bootstrap.css" rel="stylesheet">
+	{# Favicon #}
+	<link rel="shortcut icon" href="/static/mymoney/img/money-icon.png" />
 	{% block extrastyle %}{% endblock %}
 	<script>
 		function doPost(form){
@@ -11,9 +13,6 @@
 			formulario.submit();
 		}
 	</script>
-	<script src="/static/js/jQuery.js"></script>
-	<script src="/static/js/jquery-ui.min.js"></script>
-	<script src="/static/js/datepicker.js"></script>
 	{% block extrahead %}{% endblock %}
 </head>
 {% load i18n %}
