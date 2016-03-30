@@ -1,31 +1,32 @@
+# -*- coding: utf-8 -*-
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '-^x!l(o4@0gaez#y$z4qmv$o+2-m*dhb25$b5$jt)gd-o!lk)+'
+SECRET_KEY = '(hjhc*nb3u*dc2#2o8gho-#cqbk4x4j1py*69%-9hewvt!t(x5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
-# Application definition
-
 INSTALLED_APPS = (
     'dal',
     'dal_select2',
+    'admin_tools',
+    'admin_tools.theming',
+    'admin_tools.menu',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'mynota',    
+    'mynota',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -42,9 +43,9 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            # insert your TEMPLATE_DIRS here
+            (os.path.join(BASE_DIR, '/mynota/templates/'),)
         ],
-        'APP_DIRS': True,
+        'APP_DIRS': False,
         'OPTIONS': {
             'context_processors': [
                 # Insert your TEMPLATE_CONTEXT_PROCESSORS here or use this
@@ -57,6 +58,12 @@ TEMPLATES = [
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
             ],
+        'loaders': [
+                # insert your TEMPLATE_LOADERS here
+                'django.template.loaders.filesystem.Loader',
+                'django.template.loaders.app_directories.Loader',
+                'admin_tools.template_loaders.Loader',
+            ]
         },
     },
 ]
@@ -64,7 +71,6 @@ TEMPLATES = [
 ROOT_URLCONF = 'mynota_python.urls'
 
 WSGI_APPLICATION = 'mynota_python.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
@@ -85,14 +91,11 @@ DATABASES = {
 
 LANGUAGE_CODE = 'pt-br'
 
-DATE_FORMAT = 'd/m/Y'
-DATE_INPUT_FORMATS = ('%d/%m/%Y', '%d/%m/%y', )
-
 TIME_ZONE = 'America/Sao_Paulo'
 
 USE_I18N = True
 
-USE_L10N = False
+USE_L10N = True
 
 USE_TZ = True
 

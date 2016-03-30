@@ -34,12 +34,14 @@ def sair(request):
     return HttpResponseRedirect('/')
 
 def home(request):
-    return render(request, 'home.html', {'usuario': Professor.objects.get(user=request.user)})
+    if request.user.is_superuser:
+        return HttpResponseRedirect('/admin/')
+    return render(request, 'home.html', )
 
-def aluno_detail(request, id):    
+def aluno_detail(request, id):
     aluno = get_object_or_404(Aluno, pk=id)
     turmas = Turma.objects.filter(aluno = aluno)
-    # notas = Nota.objects.filter(aluno=aluno)    
+    # notas = Nota.objects.filter(aluno=aluno)
     return render(request, 'aluno_detail.html', {'turmas': turmas, 'aluno': aluno}) 
 
 def aula_add(request):

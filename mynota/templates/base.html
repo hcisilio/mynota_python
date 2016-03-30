@@ -5,7 +5,7 @@
    	<link rel="stylesheet" type="text/css" href="/static/css/estilos.css">
 	<link href="/static/css/bootstrap.css" rel="stylesheet">
 	{# Favicon #}
-	<link rel="shortcut icon" href="/static/mymoney/img/money-icon.png" />
+	<link rel="shortcut icon" href="/static/mynota/img/A+.png" />
 	{% block extrastyle %}{% endblock %}
 	<script>
 		function doPost(form){
@@ -60,14 +60,24 @@
 		    {% endblock %}-->
 			<div class="list-group">
 				{% if user.is_authenticated %}
-					<a href="/" class="list-group-item active">Início</a>
-					<a href="/admin/mynota/aluno/" class="list-group-item"> Alunos </a>
-					<a href="/admin/mynota/professor/" class="list-group-item"> Professores </a>
-					<a href="/admin/mynota/turma/" class="list-group-item"> Turmas </a>
-					<a href="/admin/mynota/curso/" class="list-group-item"> Cursos </a>
-					<a href="/aula/add/" class="list-group-item"> Aulas </a>
-					<a href="/plano_aula/add/" class="list-group-item"> Plano de Aulas </a>
-					<a href="/notas/listar/" class="list-group-item"> Lançar Notas </a>
+					{% if user.is_superuser %}
+						<a href="/" class="list-group-item active">Início</a>
+						<a href="/admin/mynota/aluno/" class="list-group-item"> Alunos </a>
+						<a href="/admin/mynota/professor/" class="list-group-item"> Professores </a>
+						<a href="/admin/mynota/turma/" class="list-group-item"> Turmas </a>
+						<a href="/admin/mynota/curso/" class="list-group-item"> Cursos </a>
+						<a href="/aula/add/" class="list-group-item"> Aulas </a>
+						<a href="/plano_aula/add/" class="list-group-item"> Plano de Aulas </a>
+						<a href="/notas/listar/" class="list-group-item"> Lançar Notas </a>
+					{% elif user.aluno %}
+						<a href="/" class="list-group-item active">Início</a>
+					{% elif user.professor %}
+						<a href="/" class="list-group-item active">Início</a>
+						<a href="/admin/mynota/turma/" class="list-group-item"> Turmas </a>
+						<a href="/aula/add/" class="list-group-item"> Aulas </a>
+						<a href="/plano_aula/add/" class="list-group-item"> Plano de Aulas </a>
+						<a href="/notas/listar/" class="list-group-item"> Lançar Notas </a>
+					{% endif %}
 				{% endif %}
 			</div>
 		</div>

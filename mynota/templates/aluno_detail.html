@@ -6,12 +6,12 @@
 {% block content %}
 
 
-<div>				
+<div>
 	<div id="dadosCadastrais" class="box">
 		<h3> Dados Cadastrais </h3>
 		<table id="personal_data">
 			<tbody>
-				<tr class='even'> <td>{{ aluno.matricula }}</td></tr>				
+				<tr class='even'> <td>{{ aluno.matricula }}</td></tr>
 				<tr class='odd'> <td>{{ aluno.nome }}</td></tr>
 				<tr class='even'> <td>{{ aluno.email }}</td></tr>
 			</tbody>
@@ -27,12 +27,12 @@
 			<tbody>
 				{% for turma in turmas %}
 				<tr>
-					<td>{{ turma.codigo }}</td>					
+					<td>{{ turma.codigo }}</td>
 					<td>{{ turma.professor.user.first_name }} {{ plano.professor.user.last_name }}</td>
 				</tr>
 				{% endfor %}
 			</tbody>
-		</table>		
+		</table>
 	{% else %}
 		<div class="alert alert-error" role="alert">O aluno não está matriculado em nenhuma turma!</div>
 	{% endif %}

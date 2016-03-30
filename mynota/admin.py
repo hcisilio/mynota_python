@@ -69,15 +69,13 @@ class TurmaAdmin(admin.ModelAdmin):
     list_filter = ('situacao', 'professor')
     form = TurmaForm
 
+    def get_queryset(self, request):
+        qs = super(TurmaAdmin, self).get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        return qs.filter(professor__user=request.user)
+
     def view_on_site(self, obj):
         return reverse('turma_detail', kwargs={'id': obj.id})
 admin.site.register(Turma, TurmaAdmin)
 
-# class AulaAdmin(admin.ModelAdmin):
-#     search_fields = ('turma', 'professor', 'data')
-#     list_display = ('turma', 'professor', 'data', 'conteudo')
-# admin.site.register(Aula, AulaAdmin)
-
-# class PlanoAulaAdmin(admin.ModelAdmin):
-#     search_fields = ('turma', 'professor', 'data', 'modulo')
-# admin.site.register(PlanoAula, PlanoAulaAdmin)
