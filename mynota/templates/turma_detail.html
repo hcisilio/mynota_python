@@ -30,7 +30,7 @@
 	{% if turma.plano_aula.all %}
 		<table id="result_list">
 			<thead>
-				<tr> <th>Turma</th> <th>Módulo</th> <th>Professor</th> <th>Data</th> <th>Conteúdo</th> </tr>
+				<tr> <th>Turma</th> <th>Módulo</th> <th>Professor</th> <th>Data</th> <th>Conteúdo</th> <th>#</th> </tr>
 			</thead>
 			<tbody>
 				{% for plano in turma.plano_aula.all %}
@@ -39,7 +39,8 @@
 					<td>{{ plano.modulo }}</td>
 					<td>{{ plano.professor.user.first_name }} {{ plano.professor.user.last_name }}</td>
 					<td>{{ plano.data|date:"d/m/Y" }}</td>
-					<td>{{ plano.conteudo }}</td>
+					<td>{{ plano.conteudo|linebreaksbr }}</td>
+					<td><a href="/print_pdf/PlanoAula/{{plano.pk}}">print</a></td>
 				</tr>
 				{% endfor %}
 			</tbody>
@@ -60,7 +61,7 @@
 					<td>{{ turma }}</td>
 					<td>{{ aula.professor.user.first_name }} {{ aula.professor.user.last_name }}</td>
 					<td>{{ aula.data|date:"d/m/Y" }}</td>
-					<td>{{ aula.conteudo }}</td>
+					<td>{{ aula.conteudo|linebreaksbr }}</td>
 				</tr>
 				{% endfor %}
 			</tbody>
@@ -75,14 +76,14 @@
 				<thead>
 					<tr> <th>Aluno</th>
 					{% for modulo in turma.curso.modulo.all %}
-						<th>{{modulo}}</th>
+						<th><label class="em_pe">{{modulo}}</label></th>
 					{% endfor %}
 					</tr>
 				</thead>
 				<tbody>
 					{% for aluno in turma.aluno_set.all %}
 						<tr>
-							<td>{{ aluno }}</td>
+							<td style="width:100%">{{ aluno }}</td>
 							{% for modulo in turma.curso.modulo.all %}
 								<th>{{ aluno|get_nota:modulo }}</th>
 							{% endfor %}

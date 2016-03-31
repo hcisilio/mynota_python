@@ -1,9 +1,14 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, HttpResponseRedirect
+from django.apps import apps
 from django.contrib import messages
 from django.core import serializers
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404
 import json
+import os
+import reportlab
+from reportlab.pdfgen import canvas
+from reportlab.lib.units import mm
 from mynota.models import *
 from mynota.forms import *
 from django.contrib.auth import login, logout
@@ -166,8 +171,6 @@ def notas_da_turma(request, turma):
     recipe_list_json = json.dumps(list) #dump list as JSON
     return HttpResponse(recipe_list_json, 'application/javascript')
 
-# from django.views.decorators.csrf import csrf_exempt
-# @csrf_exempt
 def lancar_nota(request):
     if request.method == "POST" and request.is_ajax():
         aluno = get_object_or_404(Aluno, pk=request.POST['aluno_id'])
@@ -184,3 +187,32 @@ def lancar_nota(request):
             json.dumps(response_data),
             content_type="application/json"
         )
+
+def print_pdf(request, model, id):
+    model = apps.get_model(app_label='mynota', model_name=model)
+    instance = model.objects.get(pk=id)
+    # Create the HttpResponse object with the appropriate PDF headers.
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="'+instance.turma.codigo+' em '+str(instance.data)+'"'
+
+    # Create the PDF object, using the response object as its "file."
+    p = canvas.Canvas(response, pagesize = (210*mm, 297*mm))
+
+    #Cabeçalho (imagem).
+    p.drawImage(
+        os.path.join(os.getcwd(), 'mynota/static/img/', 'microlins.png'),
+        90*mm, 260*mm, #imgage position (esquerda, fundo)
+        30.1*mm, 27.4*mm, #image size
+        preserveAspectRatio=True
+    )
+    #Relatório
+    p.drawString(10*mm, 240*mm, u'Turma: '+instance.turma.codigo)
+    p.drawString(10*mm, 235*mm, u'Módulo: '+instance.modulo.nome)
+    p.drawString(10*mm, 230*mm, u'Professor: '+instance.professor.nome+' '+instance.professor.sobrenome)
+    from django.utils.html import linebreaks
+    p.drawString(10*mm, 220*mm, linebreaks(instance.conteudo))
+
+    # Close the PDF object cleanly, and we're done.
+    p.showPage()
+    p.save()
+    return response

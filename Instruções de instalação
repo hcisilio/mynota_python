@@ -3,3 +3,4 @@ Instruções de instalação:
 1 - instalar a lib do mysql: apt-get install libmysqlclient-dev
 2 - instalar o plugin python mysql no ambiente virtual: pip install mysql-python
 3 - em caso de problema na instalação do mysql-python: apt-get install python-dev
+4 - Instalar plugin jpeg para uso no pdf: apt-get install libjpeg-dev
