@@ -15,6 +15,28 @@ class Command(BaseCommand):
                 charset="utf8",
             )
     
+    def importar_professores(self):
+        sql = """
+                SELECT * FROM professores;
+        """
+        cur = self.get_connection().cursor()
+        cur.execute(sql)
+        row = cur.fetchone()
+        while row:
+            if not Professor.objects.filter(username=row[0]):
+                nome = row[1].split()[0]
+                sobrenome = ''
+                for s in row[1].split()[1:]:
+                    sobrenome += s + ' '
+                professor = Professor(
+                    username=row[0],
+                    nome=nome,
+                    sobrenome=sobrenome,
+                    email='null@null'
+                )
+                professor.save()
+            row = cur.fetchone()
+
     def importar_turmas(self):
         CURSOS = {1: 'DEVWEB', 2: 'personal', 3: 'Excel VIP'}
         sql = """
@@ -140,11 +162,12 @@ class Command(BaseCommand):
             row = cur.fetchone()
 
     def handle(self, *args, **options):
-        # self.imortar_turmas()
-        # self.importar_dias_turmas()
-        # self.importar_planos_aulas()
-        # self.importar_aulas()
-        # self.importar_alunos()
-        # self.importar_matricula_turma()
+        self.importar_professores()
+        self.imortar_turmas()
+        self.importar_dias_turmas()
+        self.importar_planos_aulas()
+        self.importar_aulas()
+        self.importar_alunos()
+        self.importar_matricula_turma()
         self.importar_notas()
         
