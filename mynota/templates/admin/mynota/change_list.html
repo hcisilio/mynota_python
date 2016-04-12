@@ -30,6 +30,20 @@
 })(django.jQuery);
 </script>
 {% endif %}{% endif %}
+<script>
+$(document).ready(function() {
+    $("#changelist-filter ul li a").addClass("btn");
+    $("#changelist-filter ul li a").addClass("btn-sm");
+    $("#changelist-filter ul li").each(function(){
+        if ($("#changelist-filter ul li").attr('class')=='selected'){
+            $("#changelist-filter ul li a").addClass("btn-primary");
+        }
+        else {
+            $("#changelist-filter ul li a").addClass("btn-default");
+        }
+    });
+});
+</script>
 {% endblock %}
 
 {% block bodyclass %}{{ block.super }} app-{{ opts.app_label }} model-{{ opts.model_name }} change-list{% endblock %}
@@ -76,8 +90,9 @@
         {% if cl.has_filters %}
           <div id="changelist-filter">
             <h2>{% trans 'Filter' %}</h2>
-            {% for spec in cl.filter_specs %}{% admin_list_filter cl spec %}{% endfor %}
+            {% for spec in cl.filter_specs %}<div class='filtros'>{% admin_list_filter cl spec %}</div>{% endfor %}
           </div>
+          <div class='clear'></div>
         {% endif %}
       {% endblock %}
 
