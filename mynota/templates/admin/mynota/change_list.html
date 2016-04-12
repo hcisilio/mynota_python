@@ -35,11 +35,11 @@ $(document).ready(function() {
     $("#changelist-filter ul li a").addClass("btn");
     $("#changelist-filter ul li a").addClass("btn-sm");
     $("#changelist-filter ul li").each(function(){
-        if ($("#changelist-filter ul li").attr('class')=='selected'){
-            $("#changelist-filter ul li a").addClass("btn-primary");
+        if ($( this ).attr('class')=='selected'){
+            $( this ).children().addClass("btn-primary");
         }
         else {
-            $("#changelist-filter ul li a").addClass("btn-default");
+            $( this ).children().addClass("btn-default");
         }
     });
 });
