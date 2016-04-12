@@ -40,7 +40,7 @@
 					<td>{{ plano.professor.user.first_name }} {{ plano.professor.user.last_name }}</td>
 					<td>{{ plano.data|date:"d/m/Y" }}</td>
 					<td>{{ plano.conteudo|linebreaksbr }}</td>
-					<td><a href="/print_pdf/PlanoAula/{{plano.pk}}">print</a></td>
+					<td style='text-align:center'><a href="/imprimir/PlanoAula/{{plano.pk}}" target="_blank"><span class="glyphicon glyphicon-print"></span></a></td>
 				</tr>
 				{% endfor %}
 			</tbody>
@@ -91,6 +91,7 @@
 					{% endfor %}
 				</tbody>
 			</table>
+			<br /><div class='naDireita'><a href="/imprimir/Turma/{{turma.pk}}" target="_blank" class="btn btn-primary"><span class="glyphicon glyphicon-print"></span> Imprimir</a></div>
 		{% else %}
 			<p class="alert alert-info" role="alert">Turma não possui nehum aluno matriculado</p>
 		{% endif %}

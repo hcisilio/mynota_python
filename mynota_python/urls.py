@@ -39,5 +39,5 @@ urlpatterns = [
     url(r'^turma/detalhes/(?P<id>\d+)/$', mynota.views.turma_detail, name='turma_detail'),
     url(r'^notas/listar/$', mynota.views.listar_notas, name='listar_notas'),
     url(r'^notas/lancar_nota/$', mynota.views.lancar_nota, name='lancar_nota'),
-    url(r'^print_pdf/(?P<model>.+)/(?P<id>\d+)/$', mynota.views.print_pdf, name='print_pdf'),
+    url(r'^imprimir/(?P<model>.+)/(?P<id>\d+)/$', mynota.views.imprimir, name='imprimir'),
 ]

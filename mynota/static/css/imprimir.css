@@ -1,0 +1,45 @@
+/*site (tela apresentada antes de ser dado o comando para impressão)*/
+.relatorio {
+    margin-left: 10%;
+    margin-right: 10%;
+}
+.header{
+    float:right;
+}
+
+/*Impressão*/
+@media print{
+    body{
+        font-size: 12pt;
+    }
+    h2{
+        line-height: 20pt;
+        padding: 0 !important;
+        font-size: 10pt;
+    }
+
+    table{
+        font-family: "Lato", "Arial", sans-serif;
+        font-size: 8pt;
+        page-break-inside:auto;
+    }
+
+    tr{
+        /*page-break-inside: avoid;*/
+        page-break-inside:avoid;
+        page-break-after:auto;
+    }
+
+    .header {
+        display: none;
+    }
+
+    @page {
+       size: A4 portrait;
+       margin: 2cm 1cm 1cm 1cm;
+     }
+
+    @page :first{
+        margin-top: 0.5cm;
+    }
+}

@@ -1,0 +1,41 @@
+{% load mynota_filters %}
+
+<link href="/static/css/imprimir.css" rel="stylesheet">
+<link href="/static/css/estilos.css" rel="stylesheet">
+<div class='header'><input type="button" name="print" value="Imprimir" onClick="javascript:window.print()" ></div>
+<div align='center'> <img src='/static/img/microlins.png' height='150px'> </div>
+<br />
+{% if model == 'PlanoAula' %}
+    <center> <h1> Relatório de plano de aula </h1> </center> 
+    <div class='relatorio'> 
+        <p>Turma: {{instance.turma.codigo}} </p>
+        <p>Módulo: {{instance.modulo.nome}} </p>
+        <p>Professor: {{instance.professor.nome}} {{instance.professor.sobrenome}} </p>
+    </div>
+    <div class='relatorio'> {{instance.conteudo | linebreaksbr}} </div>
+{% endif %}
+
+{% if model == 'Turma' %}
+    <center> <h2> Notas da turma {{instance.codigo}} | Professor: {{instance.professor.nome}} {{instance.professor.sobrenome}} </h2> </center> 
+    <div class='relatorio'> 
+        <table id="result_list">
+            <thead>
+                <tr> <th>Aluno</th>
+                {% for modulo in instance.curso.modulo.all %}
+                    <th><label class="em_pe">{{modulo}}</label></th>
+                {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for aluno in instance.aluno_set.all %}
+                    <tr>
+                        <td style="width:100%">{{ aluno }}</td>
+                        {% for modulo in instance.curso.modulo.all %}
+                            <th>{{ aluno|get_nota:modulo }}</th>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endif %}
