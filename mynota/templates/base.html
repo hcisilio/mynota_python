@@ -1,3 +1,5 @@
+{% load menu %}
+{% generate_menu %}
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -58,7 +60,13 @@
 		    {% if title %} &rsaquo; {{ title }}{% endif %}
 		    </div>
 		    {% endblock %}-->
-			<div class="list-group">
+			<h1>User Menu</h1>
+        	{% with menu=menus.user %}{% include "menu.html" %}{% endwith %}
+
+	        <h1>Main Menu</h1>
+	        {% with menu=menus.main %}{% include "menu.html" %}{% endwith %}
+
+			<!-- <div class="list-group">
 				{% if user.is_authenticated %}
 					{% if user.is_superuser %}
 						<a href="/" class="list-group-item active">Início</a>
@@ -79,7 +87,7 @@
 						<a href="/notas/listar/" class="list-group-item"> Lançar Notas </a>
 					{% endif %}
 				{% endif %}
-			</div>
+			</div> -->
 		</div>
 	{% endif %}
 		<!-- conteúdo -->

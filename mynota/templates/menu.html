@@ -1,0 +1,7 @@
+<ul>
+    {% for item in menu %}
+    {% if item.separator %}<li>------------</li>{% endif %}
+    <li><a href="{{ item.url }}">{{ item.title }}</a></li>
+    {% if item.has_submenu %} {% for subitem in item.submenu %} {{subitem}} {% endfor %}{% endif %}
+    {% endfor %}
+</ul>

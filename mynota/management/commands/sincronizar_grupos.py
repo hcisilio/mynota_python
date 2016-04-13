@@ -13,9 +13,15 @@ class Command(BaseCommand):
         'can add modulo', 'can change modulo', 'can delete modulo',
         'can add professor', 'can change professor', 'can delete professor',
         'can add turma', 'can change turma', 'can delete turma',
+        'can add nota', 'can change nota', 'can delete nota',
+        'can add plano de aula', 'can change plano de aula', 'can delete plano de aula',
+        'can add aula', 'can change aula', 'can delete aula',
     ]
     PERM_PROFESSOR = [
         'can change turma',
+        'can add nota',
+        'can add plano de aula',
+        'can add aula',
     ]
     PERM_SECRETARIO = [
         'can add aluno', 'can change aluno', 'can delete aluno',
