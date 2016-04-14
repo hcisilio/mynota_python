@@ -119,7 +119,6 @@ class PlanoAulaForm(forms.ModelForm):
 			"conteudo": forms.Textarea(attrs={'class': 'edits', 'cols': '70', 'rows': '10'})
 		}
 
-
 class ProfessorForm(forms.ModelForm):
 	method = 'POST'
 	class Meta:

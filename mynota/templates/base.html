@@ -9,89 +9,58 @@
 	{# Favicon #}
 	<link rel="shortcut icon" href="/static/mynota/img/A+.png" />
 	{% block extrastyle %}{% endblock %}
-	<script>
-		function doPost(form){
-			var formulario = document.getElementById(form);
-			formulario.submit();
-		}
-	</script>
 	{% block extrahead %}{% endblock %}
 </head>
 {% load i18n %}
 <body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}">
 	{% if not is_popup %}
-	<!-- NavBar -->
-	<nav class="navbar navbar-default" role="navigation" id="barra">
-		{% block branding %}{% endblock %}
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<ul class="nav navbar-nav">
-					<li><a>{% block welcome-msg %}
-		                {% trans 'Welcome,' %}
-		                <strong>{% firstof user.get_short_name user.get_username %}</strong>.
-		            {% endblock %}</a></li>
-				</ul>
+	<div class="grid-menu">
+		<nav data-toggle="wy-nav-shift" class="menu-side">
+			<div class="menu-top-message">
+				{% block welcome-msg %}
+	                {% trans 'Welcome,' %}
+	                <strong>{% firstof user.get_short_name user.get_username %}</strong>.
+	            {% endblock %}
+				<div class="menu-buttons">
+					<a href="/docs/" target="_blank"> <span class="glyphicon glyphicon-question-sign"></span> </a>
+					<a href="/trocar_senha/"> <span class="glyphicon glyphicon-lock"></span> </a>
+					<a href="/sair/"> <span class="glyphicon glyphicon-off" aria-hidden="true"></span> </a>
+				</div>
 			</div>
-			<div class="collapse navbar-collapse">
-				<ul class="nav navbar-nav navbar-right">
-					{% block userlinks %}
-		                <!-- {% url 'django-admindocs-docroot' as docsroot %}
-		                {% if docsroot %}
-		                    <a href="{{ docsroot }}">{% trans 'Documentation' %}</a> /
-		                {% endif %}
-		                {% if user.has_usable_password %}
-		                <a href="{% url 'admin:password_change' %}">{% trans 'Change password' %}</a> /
-		                {% endif %}
-		                <a href="{% url 'admin:logout' %}">{% trans 'Log out' %}</a> -->
-		            {% endblock %}
-				</ul>
+			<div class="menu-scroll">
+		        {% with menu=menus.main %}{% include "menu.html" %}{% endwith %}
 			</div>
-		</div>
-		{% block nav-global %}{% endblock %}
-	</nav>
-
-	<div id="row">
-		<!-- menu lateral -->
-		<div class="col-md-3 menuLateral">
-			<!-- Caminho -->
-			<!-- {% block breadcrumbs %}
-		    <div class="breadcrumbs">
-		    <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
-		    {% if title %} &rsaquo; {{ title }}{% endif %}
-		    </div>
-		    {% endblock %}-->
-			<h1>User Menu</h1>
-        	{% with menu=menus.user %}{% include "menu.html" %}{% endwith %}
-
-	        <h1>Main Menu</h1>
-	        {% with menu=menus.main %}{% include "menu.html" %}{% endwith %}
-
-			<!-- <div class="list-group">
-				{% if user.is_authenticated %}
-					{% if user.is_superuser %}
-						<a href="/" class="list-group-item active">Início</a>
-						<a href="/admin/mynota/aluno/" class="list-group-item"> Alunos </a>
-						<a href="/admin/mynota/professor/" class="list-group-item"> Professores </a>
-						<a href="/admin/mynota/turma/" class="list-group-item"> Turmas </a>
-						<a href="/admin/mynota/curso/" class="list-group-item"> Cursos </a>
-						<a href="/aula/add/" class="list-group-item"> Aulas </a>
-						<a href="/plano_aula/add/" class="list-group-item"> Plano de Aulas </a>
-						<a href="/notas/listar/" class="list-group-item"> Lançar Notas </a>
-					{% elif user.aluno %}
-						<a href="/" class="list-group-item active">Início</a>
-					{% elif user.professor %}
-						<a href="/" class="list-group-item active">Início</a>
-						<a href="/admin/mynota/turma/" class="list-group-item"> Turmas </a>
-						<a href="/aula/add/" class="list-group-item"> Aulas </a>
-						<a href="/plano_aula/add/" class="list-group-item"> Plano de Aulas </a>
-						<a href="/notas/listar/" class="list-group-item"> Lançar Notas </a>
-					{% endif %}
-				{% endif %}
-			</div> -->
-		</div>
+		</nav>
+	</div>
 	{% endif %}
+	<div class="main">
+		<!--navbar-->
+		<nav class="navbar navbar-default" role="navigation" id="barra">
+			{% block branding %}{% endblock %}
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<ul class="nav navbar-nav">
+						<li>{{title}}</li>
+					</ul>
+				</div>
+				<div class="collapse navbar-collapse">
+					<ul class="nav navbar-nav navbar-right">
+						{% block userlinks %}
+						<!-- Caminho -->
+						{% block breadcrumbs %}
+						<div class="breadcrumbs">
+						<li><a href="{% url 'admin:index' %}">{% trans 'Home' %}</a></li>
+						{% if title %} &rsaquo; {{ title }}{% endif %}
+						</div>
+						{% endblock %}
+			            {% endblock %}
+					</ul>
+				</div>
+			</div>
+			{% block nav-global %}{% endblock %}
+		</nav>
 		<!-- conteúdo -->
-		<div class="col-md-9 abaixo">
+		<div class="conteudo">
 			{% block messages %}
 		        {% if messages %}
 		        <ul class="messagelist">{% for message in messages %}
@@ -114,7 +83,7 @@
 
 	<!-- rodapé -->
 	<div id="rodape">
-		<p class="text-muted">I CS - Cisilio's Sistemas &copy;2014 - Todos os direitos reservados I <a href="#"></a> </p>
+		<p class="text-muted">I CS - Cisilio's Sistemas &copy;2016 - Todos os direitos reservados I <a href="#"></a> </p>
 	</div>
 
 </body>

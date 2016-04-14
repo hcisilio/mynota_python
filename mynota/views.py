@@ -108,6 +108,8 @@ def plano_aula_add(request):
             plano_aula.save()
             messages.success(request, 'Plano de aula registrado com sucesso')
             return HttpResponseRedirect('/plano_aula/add/')
+        else:
+            messages.error(request, 'Preencha corretamente os campos indicados!')
     else:
         form = PlanoAulaForm()
     return render(request, 'plano_aula_add.html', {'form': form})

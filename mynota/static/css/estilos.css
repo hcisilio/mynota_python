@@ -1,32 +1,75 @@
 @charset "UTF-8";
+body{
+	font-family: sans-serif, Helvetica;
+}
 /*Classe para estilizar textos em geral*/
 .texto {
 	color: #0008C5;
 	font-size: 1.5em;
 	font-weight: normal;
-	font-family: Helvetica, sans-serif;
 }
 /*propriedade para fixar customizar o menu lateral*/
-.wy-grid-for-nav {
+.grid-menu {
     position: absolute;
-    width: 100%;
+    /*width: 100%;*/
     height: 100%;
 }
-nav.wy-nav-side {
+nav.menu-side {
     padding-bottom: 3em;
 }
-.wy-nav-side {
+.menu-side {
     position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
     padding-bottom: 2em;
-    width: 300px;
+    width: 250px;
     overflow-x: hidden;
     overflow-y: hidden;
     min-height: 100%;
-    background: #343131;
+    background: #428BCA;
     z-index: 200;
+}
+.menu-scroll {
+    width: 320px;
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: 100%;
+}
+.menu-top-message {
+    display: block;
+    width: 250px;
+    padding: 0.809em;
+    margin-bottom: 0.809em;
+    z-index: 200;
+    background-color: #2980B9;
+    text-align: center;
+    padding: 0.809em;
+    display: block;
+    color: #fcfcfc;
+    margin-bottom: 0.809em;
+	height: 80px;
+}
+.menu-buttons {
+	margin-top: 10px;
+	width: 100%;
+}
+.menu-buttons a, .menu-buttons a:link, .menu-buttons a:visited {
+	color: #FFFFFF;
+	font-variant: small-caps;
+	font-weight: bold;
+	text-decoration: none;
+}
+.item_menu {
+	margin: 20 20 20 20;
+	font-size: 12pt;
+	text-transform: uppercase;
+	display: block;
+	/*background-color: black;*/
+}
+.item_menu a{
+	color: #FFF;
 }
 /**/
 .sublinhado {
@@ -36,6 +79,16 @@ nav.wy-nav-side {
 	border-bottom-color: #428BCA;
 	border-bottom-width: 2px;
 	text-align: left;
+}
+/*Classes para estilizar o corpo da página*/
+.main {
+	margin-left: 250px !important;
+	/*padding: 1.618em 3.236em;*/
+    height: 100%;
+    margin: auto;
+}
+.conteudo{
+	margin: 0 20px 0 20px;
 }
 /*classe para destacar elemento padrão de um combobox*/
 .destaque {
@@ -194,24 +247,29 @@ nav.wy-nav-side {
 
 /*Classes para estilizar a barra superior (navbar)*/
 #barra {
-	background-color: #428BCA;
-	border-color: #428BCA;
+	border-bottom-color: #428BCA;
+	/*background-color: #FFF;*/
 	text-align: right;
-	-moz-box-shadow: 3px 3px 4px #708090;
-	-webkit-box-shadow: 3px 3px 4px #708090;
-	box-shadow: 3px 3px 4px #708090;
+	height: 80px;
+	line-height: 80px;
+    vertical-align: middle;
+	-moz-border-radius:0;
+	-webkit-border-radius:0;
+	border-radius:0;
 }
 #barra p{
-	color: #FFF;
+	color: #428BCA;
 	font-size: 1.8em;
 }
 #barra ul li {
 	display: inline;
 	list-style-type: none;
 	font-weight: bold;
+	color: #428BCA;
+	font-size: 16pt;
 }
 #barra ul li a, #barra ul li a:link, #barra ul li a:visited {
-	color: #FFFFFF;
+	color: #428BCA;
 	font-variant: small-caps;
 	font-weight: bold;
 	text-decoration: none;

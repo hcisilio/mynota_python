@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
+from django.contrib.admin import SimpleListFilter
 from django.contrib.admin.views.main import ChangeList
 from django.contrib.auth.admin import UserAdmin as AuthUserAdmin
 from django.contrib.auth.models import User
@@ -8,25 +9,21 @@ from mynota.forms import *
 from mynota.models import *
 
 admin.site.disable_action('delete_selected')
-# Register your models here.
-# class ProfessorInline(admin.StackedInline):
-#     model = Professor
-#     max_num = 1
-#     can_delete = False
-# 
-# class AlunoInline(admin.StackedInline):
-#     model = Aluno
-#     max_num = 1
-#     can_delete = False
-# 
-# class UserAdmin(AuthUserAdmin):
-#     inlines = [ProfessorInline, AlunoInline]
-# 
-# # unregister old user admin
-# admin.site.unregister(User)
-# # register new user admin
-# admin.site.register(User, UserAdmin)
 
+#Fitro de turmas para aluno admin
+class TurmaFilter(SimpleListFilter):
+    title = 'turma' # or use _('country') for translated title
+    parameter_name = 'turma'
+    def lookups(self, request, model_admin):
+        turmas = set([turma for turma in Turma.objects.filter(situacao=True)])
+        return [(turma.id, turma) for turma in turmas]
+    def queryset(self, request, queryset):
+        if self.value():
+            return queryset.filter(turma__id__exact=self.value())
+        else:
+            return queryset
+
+# Register your models here.
 class ProfessorAdmin(admin.ModelAdmin):
     ordering = ('nome', 'sobrenome')
     search_fields = ('nome', 'sobrenome')
@@ -40,7 +37,8 @@ admin.site.register(Professor, ProfessorAdmin)
 class AlunoAdmin(admin.ModelAdmin):
     ordering = ('nome', 'sobrenome')
     search_fields = ('nome', 'sobrenome', 'matricula')
-    # list_display = ('matricula', 'user__first_name','user__email', 'link_to_detail')
+    list_display = ('link_to_detail', 'matricula', 'nome_completo', )
+    list_filter = (TurmaFilter, 'turma__curso', 'turma__situacao')
     form = AlunoForm
 admin.site.register(Aluno, AlunoAdmin)
 

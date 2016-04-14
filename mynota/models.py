@@ -81,9 +81,10 @@ class Aluno(Pessoa):
 		return u'%s %s (%s)'%(self.nome, self.sobrenome, self.matricula)
 
 	def link_to_detail(self):
-		return ("<a href='/aluno/detalhes/%s'> Detalhes </a>") % (self.id)
+		return ("<a href='/aluno/detalhes/%s'> <span class='glyphicon glyphicon-search' aria-hidden='true'></span> </a><a href='/admin/mynota/aluno/%s/change/'> <span class='glyphicon glyphicon-edit' aria-hidden='true'></span> </a>") % (self.id, self.id)
 	link_to_detail.allow_tags = True
-	link_to_detail.short_description = 'Detalhes'
+	link_to_detail.short_description = '#'
+
 
 class Aula(models.Model):
 	turma = models.ForeignKey(Turma, related_name='aula')
