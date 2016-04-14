@@ -163,7 +163,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         self.importar_professores()
-        self.imortar_turmas()
+        self.importar_turmas()
         self.importar_dias_turmas()
         self.importar_planos_aulas()
         self.importar_aulas()
