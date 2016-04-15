@@ -40,7 +40,7 @@
 			<div class="container-fluid">
 				<div class="navbar-header">
 					<ul class="nav navbar-nav">
-						<li>{{title}}</li>
+						<li>{% block bar_title %}{{title}}{% endblock %}</li>
 					</ul>
 				</div>
 				<div class="collapse navbar-collapse">
