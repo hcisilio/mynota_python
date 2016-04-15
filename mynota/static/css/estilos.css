@@ -118,22 +118,6 @@ nav.menu-side {
 	color: #FFF !important;
 }
 
-/*Classe para estilizar os campos dos formulário*/
-.edits {
-	font-size: 1.2em;
-	border-width: 1px ;
-	border-style: solid;
-	border-color: #1E90FF !important;
-	font-variant: small-caps;
-	border-radius: 5px;
-}
-
-/*Classe para destacar campos de formulário preenchido indevidamente*/
-.erro {
-	border-width: 2px !important;
-	border-color: red !important;
-}
-
 /*Classes para estilizar as tabelas do site*/
 #result_list {
 	text-align: center;

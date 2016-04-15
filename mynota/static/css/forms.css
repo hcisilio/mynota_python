@@ -37,6 +37,7 @@ fieldset {
     font-size: 1.5em;
     line-height: 1em;
 }
+/*Classe para estilizar os campos dos formulário*/
 .form-row {
     padding: 10px 0 10px 20px;
     margin-top: -1;
@@ -47,6 +48,20 @@ fieldset {
 .form-row ul li {
     display: inline-block;
     padding: 0 20px 0 0;
+}
+.edits, .form-row input {
+	font-size: 1.2em;
+	border-width: 1px ;
+	border-style: solid;
+	border-color: #1E90FF !important;
+	font-variant: small-caps;
+	border-radius: 5px;
+}
+
+/*Classe para destacar campos de formulário preenchido indevidamente*/
+.erro {
+	border-width: 2px !important;
+	border-color: red !important;
 }
 .errors {
     border-style: solid;
@@ -61,6 +76,7 @@ fieldset {
 }
 .submit-row {
     padding: 20px 0 0 20px;
+    text-align: right;;
 }
 .submit-row input {
     display: inline-block;
