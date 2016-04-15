@@ -47,12 +47,10 @@
 					<ul class="nav navbar-nav navbar-right">
 						{% block userlinks %}
 						<!-- Caminho -->
-						{% block breadcrumbs %}
 						<div class="breadcrumbs">
-						<li><a href="{% url 'admin:index' %}">{% trans 'Home' %}</a></li>
-						{% if title %} &rsaquo; {{ title }}{% endif %}
+							<!-- <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+							{% if title %} &rsaquo; {{ title }}{% endif %} -->
 						</div>
-						{% endblock %}
 			            {% endblock %}
 					</ul>
 				</div>

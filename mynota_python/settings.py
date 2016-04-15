@@ -41,7 +41,7 @@ TEMPLATES = [
 INSTALLED_APPS = (
     'dal',
     'dal_select2',
-    'menu',
+    'menu',    
     'mynota',
     'django.contrib.admin',
     'django.contrib.auth',

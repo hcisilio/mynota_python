@@ -62,14 +62,34 @@ nav.menu-side {
 	text-decoration: none;
 }
 .item_menu {
-	margin: 20 20 20 20;
+	margin: 0;
 	font-size: 12pt;
 	text-transform: uppercase;
 	display: block;
-	/*background-color: black;*/
-}
+	line-height: 50px;
+	}
 .item_menu a{
+	margin: 0 0 0 20;
 	color: #FFF;
+	/*icons*/
+	background-position: 0 6px;
+	background-repeat: no-repeat;
+	background-size: 15px 15px;	
+	line-height: 50px;
+	padding: 7px 20px 7px 20px;
+}
+.item_menu.active{
+	background-color: #2980B9;	
+}
+.item_menu.active a{
+	color: #FFF;
+}
+/* backgrounds images dos itens do menu*/
+.item_menu.home a{
+	background-image: url(/static/img/icons/menu-home.png);
+}
+.item_menu.aluno a{
+	background-image: url(/static/img/icons/icon-alunos.png);
 }
 /**/
 .sublinhado {
