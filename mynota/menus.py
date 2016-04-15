@@ -12,7 +12,7 @@ Menu.add_item("main", MenuItem("Aluno",
                                "/admin/mynota/aluno/",
                                weight=10,
                                icon="tools",
-							   check=lambda request: request.user.has_perm('change_aluno')))
+							   check=lambda request: request.user.has_perm('mynota.change_aluno')))
 Menu.add_item("main", MenuItem("Professor",
                                "/admin/mynota/professor/",
                                weight=10,

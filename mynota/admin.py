@@ -69,7 +69,7 @@ class TurmaAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super(TurmaAdmin, self).get_queryset(request)
-        if request.user.is_superuser:
+        if request.user.is_superuser or Group.objects.get(name='Diretor') in request.user.groups.all():
             return qs
         return qs.filter(professor__user=request.user)
 
