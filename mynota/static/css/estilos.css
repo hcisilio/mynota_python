@@ -67,10 +67,11 @@ nav.menu-side {
 	text-transform: uppercase;
 	display: block;
 	line-height: 50px;
-	}
+}
 .item_menu a{
 	margin: 0 0 0 20;
 	color: #FFF;
+	font-weight: bold;
 	/*icons*/
 	background-position: 0 6px;
 	background-repeat: no-repeat;
@@ -78,18 +79,43 @@ nav.menu-side {
 	line-height: 50px;
 	padding: 7px 20px 7px 20px;
 }
-.item_menu.active{
-	background-color: #2980B9;	
+.item_menu a:hover{
+	text-decoration: none;
 }
-.item_menu.active a{
-	color: #FFF;
+.item_menu:hover, .item_menu.active{
+	background-color: #2980B9;
 }
+/*.item_menu a.active:after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    border-top: 8px solid #ccc;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    margin-left: -8px;
+}*/
 /* backgrounds images dos itens do menu*/
 .item_menu.home a{
 	background-image: url(/static/img/icons/menu-home.png);
 }
 .item_menu.aluno a{
-	background-image: url(/static/img/icons/icon-alunos.png);
+	background-image: url(/static/img/icons/menu-alunos.png);
+}
+.item_menu.professor a{
+	background-image: url(/static/img/icons/menu-professores2.png);
+}
+.item_menu.curso a{
+	background-image: url(/static/img/icons/menu-cursos.png);
+}
+.item_menu.turma a{
+	background-image: url(/static/img/icons/menu-turmas.png);
+}
+.item_menu.aula a{
+	background-image: url(/static/img/icons/menu-aulas.png);
+}
+.item_menu.nota a{
+	background-image: url(/static/img/icons/menu-notas2.png);
 }
 /**/
 .sublinhado {
@@ -127,17 +153,6 @@ nav.menu-side {
 .naDireita{
 	text-align: right;
 }
-
-/*Classes para estilização do menu lateral do site*/
-.menuLateral{
-	margin-left: 0px !important;
-	margin-top: 5px;
-}
-.menuLateral a:hover {
-	background-color: #428BCA !important;
-	color: #FFF !important;
-}
-
 /*Classes para estilizar as tabelas do site*/
 #result_list {
 	text-align: center;

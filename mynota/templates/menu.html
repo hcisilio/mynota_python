@@ -1,4 +1,8 @@
 {% for item in menu %}
 <p class="item_menu {{ item.icon }} {% if item.url == request.get_full_path %} active {%endif%}"><a href="{{ item.url }}">{{ item.title }}</a></p>
-{% if item.has_submenu %} {% for subitem in item.submenu %} {{subitem}} {% endfor %}{% endif %}
+    {% if item.has_submenu %}
+        {% for subitem in item.submenu %}
+            <p class="item_menu {% if subitem.url == request.get_full_path %} active {%endif%}"><a href="{{ subitem.url }}">{{ subitem.title }}</a></p>
+        {% endfor %}
+    {% endif %}
 {% endfor %}
