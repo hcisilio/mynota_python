@@ -16,7 +16,6 @@ upload/*
 htmlcov/
 .coverage
 .ropeproject/
-mynota/migrations/*
 docs/_build
 *~
 
