@@ -58,6 +58,10 @@ class AlunoForm(forms.ModelForm):
 			'email': 'e-mail',
 			'turma': 'Turma',
 		}
+        class Media:
+            css = {
+                    'all': ('/static/css/autocomplete.css',)
+            }
 
 	def clean_turma(self):
 		turmas = self.cleaned_data.get('turma')
@@ -157,3 +161,7 @@ class TurmaForm(forms.ModelForm):
 			'situacao': u'Turma Ativa?',
 			'dia': 'Dias',
 		}
+        class Media:
+            css = {
+                    'all': ('/static/css/autocomplete.css',)
+            }
