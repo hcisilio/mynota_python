@@ -17,5 +17,6 @@ htmlcov/
 .coverage
 .ropeproject/
 docs/_build
+*.swp
 *~
 
