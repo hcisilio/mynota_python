@@ -4,7 +4,7 @@ from django.contrib.admin import SimpleListFilter
 from django.contrib.admin.views.main import ChangeList
 from django.contrib.auth.admin import UserAdmin as AuthUserAdmin
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from mynota.forms import *
 from mynota.models import *
 

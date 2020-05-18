@@ -5,7 +5,6 @@ from django.contrib.admin import widgets
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.db import transaction
-from mynota.autocomplete_light_registry import *
 from mynota.models import *
 
 
@@ -41,35 +40,35 @@ class LoginForm(forms.Form):
 		return authenticate(username=usuario, password=senha)
 
 class AlunoForm(forms.ModelForm):
-	class Meta:
-		model = Aluno
-		exclude = ['user',]
+    class Meta:
+        model = Aluno
+        exclude = ['user',]
 
-		widgets={
-			"matricula": forms.TextInput(attrs={'class':'edits', 'size':'20'}),
-			"nome":forms.TextInput(attrs={'class':'edits', 'size':'30'}),
-			"sobrenome":forms.TextInput(attrs={'class':'edits', 'size':'60'}),
-			"email":forms.TextInput(attrs={'class':'edits', 'size':'60'}),
-			"turma": autocomplete.ModelSelect2Multiple(url='turma-autocomplete', attrs={'class': 'edits'}),
-			"comentario":forms.Textarea(attrs={'class':'edits', 'rows':4, 'cols':70}),
-		}
-		labels = {
-			'matricula': 'Matrícula',
-			'email': 'e-mail',
-			'turma': 'Turma',
-		}
-        class Media:
-            css = {
-                    'all': ('/static/css/autocomplete.css',)
-            }
+        widgets={
+            "matricula": forms.TextInput(attrs={'class':'edits', 'size':'20'}),
+            "nome":forms.TextInput(attrs={'class':'edits', 'size':'30'}),
+            "sobrenome":forms.TextInput(attrs={'class':'edits', 'size':'60'}),
+            "email":forms.TextInput(attrs={'class':'edits', 'size':'60'}),
+            #"turma": autocomplete.ModelSelect2Multiple(url='turma-autocomplete', attrs={'class': 'edits'}),
+            "comentario":forms.Textarea(attrs={'class':'edits', 'rows':4, 'cols':70}),
+        }
+        labels = {
+            'matricula': 'Matrícula',
+            'email': 'e-mail',
+            'turma': 'Turma',
+        }
+    class Media:
+        css = {
+            'all': ('/static/css/autocomplete.css',)
+        }
 
-	def clean_turma(self):
-		turmas = self.cleaned_data.get('turma')
-		for i in range(0, len(turmas)-1):
-			for j in range(0, len(turmas)-1-i):
-				if turmas[j].curso == turmas[j + 1].curso:
-					raise forms.ValidationError(u'Aluno não pode ser matriculado em turmas de mesmo curso (turmas %s e %s são do curso %s)' % (turmas[j].codigo, turmas[j+1].codigo, turmas[j].curso))
-		return turmas
+    def clean_turma(self):
+        turmas = self.cleaned_data.get('turma')
+        for i in range(0, len(turmas)-1):
+            for j in range(0, len(turmas)-1-i):
+                if turmas[j].curso == turmas[j + 1].curso:
+                    raise forms.ValidationError(u'Aluno não pode ser matriculado em turmas de mesmo curso (turmas %s e %s são do curso %s)' % (turmas[j].codigo, turmas[j+1].codigo, turmas[j].curso))
+        return turmas
 
 class AulaForm(forms.ModelForm):
 	def __init__(self, *args, **kwargs):
@@ -144,24 +143,24 @@ class ProfessorForm(forms.ModelForm):
 		}
 
 class TurmaForm(forms.ModelForm):
-	class Meta:
-		model = Turma
-		fields = ['codigo', 'curso', 'professor', 'dia', 'situacao']
-		widgets={
-			"codigo":forms.TextInput(attrs={'class':'edits'}),
-			"curso":forms.Select(attrs={'class':'edits'}),
-			"professor": autocomplete.ModelSelect2(url='professor-autocomplete', attrs={'class': 'edits'}),
-			"situacao": forms.CheckboxInput(attrs={'class':'edits'}),
-			"dia":forms.CheckboxSelectMultiple(),
-		}
-		labels = {
-			'codigo': u'Código',
-			'curso': u'Curso',
-			'professor': 'Professor',
-			'situacao': u'Turma Ativa?',
-			'dia': 'Dias',
-		}
-        class Media:
-            css = {
-                    'all': ('/static/css/autocomplete.css',)
-            }
+    class Meta:
+        model = Turma
+        fields = ['codigo', 'curso', 'professor', 'dia', 'situacao']
+        widgets={
+            "codigo":forms.TextInput(attrs={'class':'edits'}),
+            "curso":forms.Select(attrs={'class':'edits'}),
+            #"professor": autocomplete.ModelSelect2(url='professor-autocomplete', attrs={'class': 'edits'}),
+            "situacao": forms.CheckboxInput(attrs={'class':'edits'}),
+            "dia":forms.CheckboxSelectMultiple(),
+        }
+        labels = {
+            'codigo': u'Código',
+            'curso': u'Curso',
+            'professor': 'Professor',
+            'situacao': u'Turma Ativa?',
+            'dia': 'Dias',
+        }
+    class Media:
+        css = {
+            'all': ('/static/css/autocomplete.css',)
+        }

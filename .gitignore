@@ -10,6 +10,7 @@ ehthumbs.db
 Thumbs.db
 .project
 .pydevproject
+*settings.py
 .settings/*
 upload/*
 .idea/*

@@ -8,10 +8,10 @@ class Pessoa(models.Model):
 	sobrenome = models.CharField(max_length=256, null=False, blank=False)
 	email = models.EmailField(null=True, blank=True)
 	comentario = models.TextField(max_length=1000, null=True, blank=True)
-	
+
 	class Meta:
 		abstract = True
-	
+
 	def nome_completo(self):
 		return " ".join([self.user.first_name, self.user.last_name])
 	nome_completo.short_description = u'Nome Completo'
@@ -49,15 +49,15 @@ class Curso(models.Model):
 
 class Modulo(models.Model):
 	nome = models.CharField(max_length=45)
-	curso = models.ForeignKey(Curso, related_name='modulo')
+	curso = models.ForeignKey(Curso, related_name='modulo', on_delete=models.CASCADE)
 
 	def __unicode__(self):
 		return u'%s'%(self.nome)
 
 class Turma(models.Model):
 	codigo = models.CharField(u'Código', max_length=10, unique=True)
-	professor = models.ForeignKey(Professor, related_name='turma')
-	curso = models.ForeignKey(Curso, related_name='turma')
+	professor = models.ForeignKey(Professor, related_name='turma', on_delete=models.CASCADE)
+	curso = models.ForeignKey(Curso, related_name='turma', on_delete=models.CASCADE)
 	situacao = models.BooleanField(u'Situação', default=True)
 	dia = models.ManyToManyField(Dia)
 
@@ -87,8 +87,8 @@ class Aluno(Pessoa):
 
 
 class Aula(models.Model):
-	turma = models.ForeignKey(Turma, related_name='aula')
-	professor = models.ForeignKey(Professor, related_name='aula')
+	turma = models.ForeignKey(Turma, related_name='aula', on_delete=models.CASCADE)
+	professor = models.ForeignKey(Professor, related_name='aula', on_delete=models.CASCADE)
 	data = models.DateField()
 	conteudo = models.TextField(max_length=2048)
 
@@ -96,9 +96,9 @@ class Aula(models.Model):
 		return u'%s - %s'%(self.id, self.turma.codigo)
 
 class PlanoAula(models.Model):
-	turma = models.ForeignKey(Turma, related_name='plano_aula')
-	modulo = models.ForeignKey(Modulo, related_name='plano_aula')
-	professor = models.ForeignKey(Professor, related_name='plano_aula')
+	turma = models.ForeignKey(Turma, related_name='plano_aula', on_delete=models.CASCADE)
+	modulo = models.ForeignKey(Modulo, related_name='plano_aula', on_delete=models.CASCADE)
+	professor = models.ForeignKey(Professor, related_name='plano_aula', on_delete=models.CASCADE)
 	data = models.DateField()
 	conteudo = models.TextField(max_length=2048)
 
@@ -110,8 +110,8 @@ class PlanoAula(models.Model):
 		return u'%s - %s (%s)'%(self.id, self.turma.codigo, self.modulo.nome)
 
 class Nota(models.Model):
-	aluno = models.ForeignKey(Aluno, related_name='nota')
-	modulo = models.ForeignKey(Modulo, related_name='nota')
+	aluno = models.ForeignKey(Aluno, related_name='nota', on_delete=models.CASCADE)
+	modulo = models.ForeignKey(Modulo, related_name='nota', on_delete=models.CASCADE)
 	valor = models.FloatField()
 
 	class Meta:
