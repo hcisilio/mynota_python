@@ -28,7 +28,7 @@ class Professor(Pessoa):
 		verbose_name = u'Professor'
 		verbose_name_plural = u'Professores'
 
-	def __unicode__(self):
+	def __str__(self):
 		return u'%s %s'%(self.user.first_name, self.user.last_name)
 
 class Dia(models.Model):
@@ -37,21 +37,21 @@ class Dia(models.Model):
 	class Meta:
 		ordering = ['id',]
 
-	def __unicode__(self):
+	def __str__(self):
 		return u'%s'%(self.nome)
 
 class Curso(models.Model):
 	codigo = models.CharField(max_length=20, unique=True, null=True)
 	nome = models.CharField(max_length=45)
 
-	def __unicode__(self):
+	def __str__(self):
 		return u'%s'%(self.nome)
 
 class Modulo(models.Model):
 	nome = models.CharField(max_length=45)
 	curso = models.ForeignKey(Curso, related_name='modulo', on_delete=models.CASCADE)
 
-	def __unicode__(self):
+	def __str__(self):
 		return u'%s'%(self.nome)
 
 class Turma(models.Model):
@@ -61,7 +61,7 @@ class Turma(models.Model):
 	situacao = models.BooleanField(u'Situação', default=True)
 	dia = models.ManyToManyField(Dia)
 
-	def __unicode__(self):
+	def __str__(self):
 		return u'%s (%s)'%(self.codigo, self.curso)
 
 	def get_dias(self):
@@ -77,7 +77,7 @@ class Aluno(Pessoa):
 	matricula = models.CharField(max_length=10, unique=True)
 	turma = models.ManyToManyField(Turma)
 
-	def __unicode__(self):
+	def __str__(self):
 		return u'%s %s (%s)'%(self.nome, self.sobrenome, self.matricula)
 
 	def link_to_detail(self):
@@ -92,7 +92,7 @@ class Aula(models.Model):
 	data = models.DateField()
 	conteudo = models.TextField(max_length=2048)
 
-	def __unicode__(self):
+	def __str__(self):
 		return u'%s - %s'%(self.id, self.turma.codigo)
 
 class PlanoAula(models.Model):
@@ -106,7 +106,7 @@ class PlanoAula(models.Model):
 		verbose_name = u'Plano de aula'
 		verbose_name_plural = u'Planos de aula'
 
-	def __unicode__(self):
+	def __str__(self):
 		return u'%s - %s (%s)'%(self.id, self.turma.codigo, self.modulo.nome)
 
 class Nota(models.Model):
@@ -117,7 +117,7 @@ class Nota(models.Model):
 	class Meta:
 		unique_together = ("aluno", "modulo")
 
-	def __unicode__(self):
+	def __str__(self):
 		return u'%s - %s'%(self.aluno, self.modulo)
 
 	@classmethod
