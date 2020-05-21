@@ -1,4 +1,4 @@
-{% load menu %}
+{% load menu i18n %}
 {% generate_menu %}
 <html>
 <head>
@@ -11,7 +11,6 @@
 	{% block extrastyle %}{% endblock %}
 	{% block extrahead %}{% endblock %}
 </head>
-{% load i18n %}
 <body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}">
 	{% if not is_popup %}
 	<div class="grid-menu">
@@ -28,7 +27,9 @@
 				</div>
 			</div>
 			<div class="menu-scroll">
+				{% block menu %}
 		        {% with menu=menus.main %}{% include "menu.html" %}{% endwith %}
+				{% endblock %}
 			</div>
 		</nav>
 	</div>

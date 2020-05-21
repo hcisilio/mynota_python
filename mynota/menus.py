@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from menu import Menu, MenuItem
 
 #submenus
@@ -21,7 +21,7 @@ Menu.add_item("main", MenuItem("Home",
                                "/",
                                weight=10,
                                icon="home",
-							   check=lambda request: request.user.is_authenticated()))
+							   check=lambda request: request.user.is_authenticated))
 Menu.add_item("main", MenuItem("Aluno",
                                "/admin/mynota/aluno/",
                                weight=10,
