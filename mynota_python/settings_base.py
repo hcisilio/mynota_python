@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     #'dal',
     #'dal_select2',
     'menu',
+    'ckeditor',
     'mynota',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -62,6 +63,13 @@ MIDDLEWARE = [
 ]
 
 MENU_SELECT_PARENTS = True
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 300,
+    },
+}
 
 ROOT_URLCONF = 'mynota_python.urls'
 

@@ -79,9 +79,8 @@ class AulaForm(forms.ModelForm):
 		exclude = ['professor',]
 
 		widgets = {
-			"turma": forms.Select(attrs={'class':'edits'}),	
+			"turma": forms.Select(attrs={'class':'edits'}),
 			"data": forms.DateInput(attrs={'class':'edits br-data-widget datepicker', 'size': '10'}),
-			"conteudo": forms.Textarea(attrs={'class': 'edits', 'cols': '70', 'rows': '10'})
 		}
 
 class CursoForm(forms.ModelForm):

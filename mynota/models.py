@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-from django.db import models
+from ckeditor.fields import RichTextField
 from django.contrib.auth.models import Group, User
+from django.db import models
 
 class Pessoa(models.Model):
 	user = models.OneToOneField(User, null=False, blank=False, on_delete=models.CASCADE)
@@ -90,7 +91,7 @@ class Aula(models.Model):
 	turma = models.ForeignKey(Turma, related_name='aula', on_delete=models.CASCADE)
 	professor = models.ForeignKey(Professor, related_name='aula', on_delete=models.CASCADE)
 	data = models.DateField()
-	conteudo = models.TextField(max_length=2048)
+	conteudo = RichTextField()
 
 	def __str__(self):
 		return u'%s - %s'%(self.id, self.turma.codigo)
@@ -100,7 +101,7 @@ class PlanoAula(models.Model):
 	modulo = models.ForeignKey(Modulo, related_name='plano_aula', on_delete=models.CASCADE)
 	professor = models.ForeignKey(Professor, related_name='plano_aula', on_delete=models.CASCADE)
 	data = models.DateField()
-	conteudo = models.TextField(max_length=2048)
+	conteudo = RichTextField()
 
 	class Meta:
 		verbose_name = u'Plano de aula'

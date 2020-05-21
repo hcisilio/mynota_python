@@ -78,6 +78,7 @@ $(function(){
 {% endblock %}
 
 {% block content %}
+	{{ form.media }}
 	<form id="formAula" action="." method="post">{% csrf_token %}
 		<div>
 			<fieldset class="module aligned">
