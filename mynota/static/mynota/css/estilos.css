@@ -1,6 +1,6 @@
 @charset "UTF-8";
 body{
-	font-family: sans-serif, Helvetica;
+	font-family: "Lato",sans-serif;
 }
 /*Classe para estilizar textos em geral*/
 .texto {
@@ -61,30 +61,35 @@ nav.menu-side {
 	font-weight: bold;
 	text-decoration: none;
 }
-.item_menu {
-	margin: 0;
-	font-size: 12pt;
-	text-transform: uppercase;
-	display: block;
-	line-height: 50px;
+div.item_menu{
+  border: none;
+  height: 40px;
+  width: 250px;
 }
-.item_menu a{
-	margin: 0 0 0 20;
-	color: #FFF;
-	font-weight: bold;
-	/*icons*/
-	background-position: 0 6px;
-	background-repeat: no-repeat;
-	background-size: 15px 15px;	
-	line-height: 50px;
-	padding: 7px 20px 7px 20px;
+div.item_menu:hover, div.item_menu.active {
+	background-color: #2980b9;
 }
-.item_menu a:hover{
+div.item_menu a {
+	color: #fff;
 	text-decoration: none;
 }
-.item_menu:hover, .item_menu.active{
-	background-color: #2980B9;
+
+div.item_menu.active .tres {
+	float: right;
+	line-height:0;
+	border-style: solid;
+	border-color: #2980b9 #ffffff #2980b9 #2980b9;
+	border-width: 20px 20px 20px 20px;
 }
+
+div.menu_text {
+	float:left;
+	line-height: 40px;
+	margin-left: 10px;
+	font-size: 12pt;
+	text-transform: uppercase;
+}
+
 /*.item_menu a.active:after {
     content: "";
     position: absolute;

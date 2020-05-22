@@ -1,8 +1,14 @@
 {% for item in menu %}
-<p class="item_menu {{ item.icon }} {% if item.url == request.get_full_path %} active {%endif%}"><a href="{{ item.url }}">{{ item.title }}</a></p>
-    {% if item.has_submenu %}
-        {% for subitem in item.submenu %}
-            <p class="item_menu {% if subitem.url == request.get_full_path %} active {%endif%}"><a href="{{ subitem.url }}">{{ subitem.title }}</a></p>
-        {% endfor %}
-    {% endif %}
+<div class="item_menu {% if item.url == request.get_full_path %} active {%endif%}">
+	<div class="menu_text">
+		<a href="{{ item.url }}"><i class="{{ item.icon }}"></i> {{ item.title }}</a>
+			{% if item.has_submenu %}
+				{% for subitem in item.submenu %}
+					<p class="{% if subitem.url == request.get_full_path %} active {%endif%}"><a href="{{ subitem.url }}">{{ subitem.title }}</a></p>
+				{% endfor %}
+			{% endif %}
+	</div>
+	<div class="tres"></div>
+	<div class="clear"></div>
+</div>
 {% endfor %}

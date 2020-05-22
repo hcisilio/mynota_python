@@ -1,11 +1,16 @@
-{% load menu i18n %}
+{% load menu i18n static %}
 {% generate_menu %}
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
    	<title> {% block title %} {% endblock %} </title>
-	<link href="/static/css/bootstrap.css" rel="stylesheet">
-   	<link rel="stylesheet" type="text/css" href="/static/css/estilos.css">
+	<link href={% static 'mynota/css/bootstrap.css' %} rel="stylesheet">
+   	<link rel="stylesheet" type="text/css" href={% static 'mynota/css/estilos.css' %}>
+	<!-- Font Awesome JS -->
+	<!-- https://use.fontawesome.com/releases/v5.0.13/js/solid.js -->
+	<script defer src="{% static 'mynota/fonts/fontawesome.solid.js' %}"></script>
+	<!-- https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js -->
+	<script defer src="{% static 'mynota/fonts/fontawesome.js' %}"></script>
 	{# Favicon #}
 	<link rel="shortcut icon" href="/static/mynota/img/A+.png" />
 	{% block extrastyle %}{% endblock %}
@@ -21,9 +26,9 @@
 	                <strong>{% firstof user.get_short_name user.get_username %}</strong>.
 	            {% endblock %}
 				<div class="menu-buttons">
-					<a href="/docs/" target="_blank"> <span class="glyphicon glyphicon-question-sign"></span> </a>
-					<a href="/admin/password_change/"> <span class="glyphicon glyphicon-lock"></span> </a>
-					<a href="/sair/"> <span class="glyphicon glyphicon-off" aria-hidden="true"></span> </a>
+					<a href="/docs/" target="_blank"> <i class="fas fa-question-circle"></i> </a>
+					<a href="/admin/password_change/"> <i class="fas fa-key"></i> </a>
+					<a href="/sair/"> <i class="fas fa-sign-out-alt"></i> </a>
 				</div>
 			</div>
 			<div class="menu-scroll">

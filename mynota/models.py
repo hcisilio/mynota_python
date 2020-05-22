@@ -70,7 +70,7 @@ class Turma(models.Model):
 	get_dias.short_description = 'Dias de Aula'
 
 	def link_to_detail(self):
-		return ("<a href='/turma/detalhes/%s'> <span class='glyphicon glyphicon-search' aria-hidden='true'></span> </a><a href='/admin/mynota/turma/%s/change/'> <span class='glyphicon glyphicon-edit' aria-hidden='true'></span> </a>") % (self.id, self.id)
+		return "<a href='/turma/detalhes/{}/'> <i class='fas fa-eye'></i> </a><a href='/admin/mynota/turma/{}/change/'> <i class='far fa-edit'></i> </a>".format(self.id, self.id)
 	link_to_detail.allow_tags = True
 	link_to_detail.short_description = '#'
 
