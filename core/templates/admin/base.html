@@ -4,15 +4,15 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
    	<title> {% block title %} {% endblock %} </title>
-	<link href={% static 'mynota/css/bootstrap.css' %} rel="stylesheet">
-   	<link rel="stylesheet" type="text/css" href={% static 'mynota/css/estilos.css' %}>
+	<link href={% static 'bootstrap/css/bootstrap.css' %} rel="stylesheet">
+   	<link rel="stylesheet" type="text/css" href={% static 'core/css/estilos.css' %}>
 	<!-- Font Awesome JS -->
 	<!-- https://use.fontawesome.com/releases/v5.0.13/js/solid.js -->
-	<script defer src="{% static 'mynota/fonts/fontawesome.solid.js' %}"></script>
+	<script defer src="{% static 'core/fonts/fontawesome.solid.js' %}"></script>
 	<!-- https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js -->
-	<script defer src="{% static 'mynota/fonts/fontawesome.js' %}"></script>
+	<script defer src="{% static 'core/fonts/fontawesome.js' %}"></script>
 	{# Favicon #}
-	<link rel="shortcut icon" href="/static/mynota/img/A+.png" />
+	<link rel="shortcut icon" href="/static/core/img/A+.png" />
 	{% block extrastyle %}{% endblock %}
 	{% block extrahead %}{% endblock %}
 </head>

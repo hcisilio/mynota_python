@@ -1,11 +1,11 @@
-{% extends "base.html" %}
+{% extends "admin/base.html" %}
 {% load i18n admin_urls static admin_list %}
 
 {% block extrastyle %}
   {{ block.super }}
-  <link rel="stylesheet" type="text/css" href="{% static 'mynota/css/changelists.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'core/css/changelists.css' %}" />
   {% if cl.formset %}
-    <link rel="stylesheet" type="text/css" href="{% static 'mynota/css/forms.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'core/css/forms.css' %}" />
   {% endif %}
   {% if cl.formset or action_form %}
     <script type="text/javascript" src="{% url 'admin:jsi18n' %}"></script>

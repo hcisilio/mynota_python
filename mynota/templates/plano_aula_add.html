@@ -1,19 +1,20 @@
-{% extends 'base.html' %}
+{% extends 'admin/base.html' %}
+{% load static %}
 
 {% block title %} Registrar Plano de Aula {% endblock %}
 {% block bar_title %}Registrar Plano de Aula{% endblock %}
 
-{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="/static/css/forms.css" />
-<link href="/static/css/jquery-ui.min.css" rel="stylesheet">
-<link href="/static/css/jquery-ui.structure.min.css" rel="stylesheet">
-<link href="/static/css/jquery-ui.theme.min.css" rel="stylesheet">
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static 'core/css/forms.css' %}" />
+<link href="{% static 'Jquery/css/jquery-ui.min.css' %}" rel="stylesheet">
+<link href="{% static 'Jquery/css/jquery-ui.structure.min.css' %}" rel="stylesheet">
+<link href="{% static 'Jquery/css/jquery-ui.theme.min.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block extrahead %}
-<script src="/static/js/jQuery.js"></script>
-<script src="/static/js/jquery-ui.min.js"></script>
-<script src="/static/js/datepicker.js"></script>
-<script src="/static/js/errorfield.js"></script>
+<script src="{% static 'Jquery/js/jQuery.js' %}"></script>
+<script src="{% static 'Jquery/js/jquery-ui.min.js' %}"></script>
+<script src="{% static 'core/js/datepicker.js' %}"></script>
+<script src="{% static 'core/js/errorfield.js' %}"></script>
 <script>
 //Carregando apenas turmas do professor logado
 $(document).ready(function(){
