@@ -4,3 +4,4 @@ mysqlclient
 django-ckeditor==5.9.0
 python-dateutil
 django-simple-menu
+django-heroku
