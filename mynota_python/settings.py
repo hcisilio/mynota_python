@@ -4,11 +4,6 @@ try:
 except ImportError as e:
     pass
 
-#Heroku-configs
-import django_heroku
-# Activate Django-Heroku.
-django_heroku.settings(locals())
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -19,3 +14,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+#Heroku-configs
+import django_heroku
+# Activate Django-Heroku.
+django_heroku.settings(locals())
