@@ -1,4 +1,4 @@
-django==3.0.6
+django==3.1.6
 pymysql
 mysqlclient
 django-ckeditor==5.9.0
